@@ -9,6 +9,6 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public class User {
     private int id;
-    private int username;
+    private String username;
     private String password;
 }
