@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Mapper//代表一个mybatis的mapper类
-@Repository
+//@Mapper//代表一个mybatis的mapper类
+//@Repository
 public interface UserMapper{
     List<User> getAllUser();
 }
