@@ -16,4 +16,15 @@ public class UserServiceimpl implements UserService {
     public List<User> getAllUser() {
         return userMapper.getAllUser();
     }
+
+    @Override
+    public List<User> querybyname() {
+        return null;
+    }
+
+    @Override
+    public User querybyname(String username, String password) {
+        return userMapper.querybyname(username,password);
+    }
+
 }

@@ -12,4 +12,7 @@ import java.util.List;
 //@Repository
 public interface UserMapper{
     List<User> getAllUser();
+    List<User> querybyname();
+
+    User querybyname(String username, String password);
 }

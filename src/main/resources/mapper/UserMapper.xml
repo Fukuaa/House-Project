@@ -5,6 +5,8 @@
     <select id="getAllUser" resultType="User">
         SELECT * from user;
     </select>
-
+    <select id="querybyname" parameterType="String" resultType="User">
+        select * from user where username = #{username} and password = #{password};
+    </select>
 
 </mapper>

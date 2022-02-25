@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface UserService {
     List<User> getAllUser();
+    List<User> querybyname();
+
+    User querybyname(String username, String password);
 }
