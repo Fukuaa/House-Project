@@ -1,6 +1,7 @@
 package com.example.houseproject.Mapper;
 
 import com.example.houseproject.Pojo.User;
+import com.example.houseproject.Pojo.fangzhi;
 import org.springframework.stereotype.Repository;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +16,5 @@ public interface UserMapper{
     List<User> querybyname();
 
     User querybyname(String username, String password);
+    List getall();
 }
