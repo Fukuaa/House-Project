@@ -17,4 +17,5 @@ public interface UserMapper{
 
     User querybyname(String username, String password);
     List getall();
+    int addUser(String username,String password);
 }

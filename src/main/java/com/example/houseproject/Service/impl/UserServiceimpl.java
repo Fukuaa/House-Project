@@ -33,4 +33,9 @@ public class UserServiceimpl implements UserService {
         return userMapper.querybyname(username,password);
     }
 
+    @Override
+    public int addUser(String username, String password) {
+        return userMapper.addUser(username,password);
+    }
+
 }

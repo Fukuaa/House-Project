@@ -10,4 +10,5 @@ public interface UserService {
     List<User> querybyname();
     List getall();
     User querybyname(String username, String password);
+    int addUser(String username,String password);
 }

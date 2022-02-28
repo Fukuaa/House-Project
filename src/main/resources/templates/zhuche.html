@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+<center>
+    <h2 style="color: cornflowerblue">注册成功将跳转到首页</h2>
+</center>
+<div style="border-radius: 15px;
+		background-clip: padding-box;
+		margin: 180px auto;
+		width: 350px;
+		padding: 15px 35px 15px 35px;
+		background: white;
+		border: 1px solid wheat;
+		box-shadow: 0 0 25px whitesmoke;" >
+    <form th:action="@{/zhuChe}">
+        <center>
+            <h1 style="margin: 0px auto 40px auto;
+		text-align: center;">login</h1>
+            输入账号:<input type="text" name="username"><br><br>
+            输入密码:<input type="password" name="password"><br><br>
+            确认密码:<input ><br><br>
+        </center>
+        <center>
+            <div style="align-items:center;">
+                <button  type="submit">完成</button>
+            </div>
+        </center>
+
+
+    </form>
+</div>
+</body>
+</html>

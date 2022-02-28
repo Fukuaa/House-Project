@@ -25,8 +25,6 @@ public class LoginController {
     }
     @RequestMapping("/login")
     public String login(Model model,String username, String password){
-        System.out.println(username);
-        System.out.println(password);
         User user = userService.querybyname(username,password);
         String username1 = "你好！"+ username;
         model.addAttribute("msg",userService.getall());
@@ -36,6 +34,15 @@ public class LoginController {
         }else {
             return "index1";
         }
+    }
+    @RequestMapping("/zhuChe")
+    public String zhuche(String username, String password){
+        userService.addUser(username,password);
+        return "index";
+    }
+    @RequestMapping("/goZhuChe")
+    public String gozhuche(){
+        return "zhuche";
     }
 
 }

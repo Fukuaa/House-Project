@@ -15,14 +15,15 @@ class HouseProjectApplicationTests {
     UserMapper userMapper;
     @Test
     void contextLoads() {
-        List<fangzhi> list = userMapper.getall();
+        /*List<fangzhi> list = userMapper.getall();
         for (fangzhi l : list) {
             System.out.println(l);
         }
         fangzhi fangzhi = new fangzhi();
-        System.out.println(fangzhi);
+        System.out.println(fangzhi);*/
         /*User user = userMapper.querybyname("zqf","123");
         System.out.println(user);*/
+        userMapper.addUser("q","1");
     }
 
 }

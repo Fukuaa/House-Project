@@ -11,4 +11,7 @@
     <select id="getall"  resultType="fangzhi">
         select * from fangzhi;
     </select>
+    <insert id="addUser">
+            insert into user(username,password) values(#{username},#{password})
+    </insert>
 </mapper>
