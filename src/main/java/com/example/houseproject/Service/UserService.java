@@ -11,4 +11,10 @@ public interface UserService {
     List getall();
     User querybyname(String username, String password);
     int addUser(String username,String password);
+    int xiugai(String dizhi,int mianji,int jiage,int hid);
+    int shanchu(int hid);
+
+    fangzhi querybyid(int hid);
+
+    void addfangzhi(String dizhi, int mianji, int jiage, String tupian);
 }

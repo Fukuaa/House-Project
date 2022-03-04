@@ -13,9 +13,14 @@ import java.util.List;
 //@Repository
 public interface UserMapper{
     List<User> getAllUser();
-    List<User> querybyname();
 
     User querybyname(String username, String password);
     List getall();
     int addUser(String username,String password);
+    int xiugai(String dizhi,int mianji,int jiage,int hid);
+    int shanchu(int hid);
+
+    fangzhi querybyid(int hid);
+
+    void addfangzhi(String dizhi, int mianji, int jiage, String tupian);
 }

@@ -38,4 +38,24 @@ public class UserServiceimpl implements UserService {
         return userMapper.addUser(username,password);
     }
 
+    @Override
+    public int xiugai(String dizhi,int mianji,int jiage,int hid) {
+        return userMapper.xiugai(dizhi,mianji,jiage,hid);
+    }
+
+    @Override
+    public int shanchu(int hid) {
+        return userMapper.shanchu(hid);
+    }
+
+    @Override
+    public fangzhi querybyid(int hid) {
+        return userMapper.querybyid(hid);
+    }
+
+    @Override
+    public void addfangzhi(String dizhi, int mianji, int jiage, String tupian) {
+        userMapper.addfangzhi(dizhi,mianji,jiage,tupian);
+    }
+
 }
