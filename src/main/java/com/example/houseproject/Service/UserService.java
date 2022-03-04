@@ -17,4 +17,8 @@ public interface UserService {
     fangzhi querybyid(int hid);
 
     void addfangzhi(String dizhi, int mianji, int jiage, String tupian);
+
+    void gaimima(String u,String p);
+
+    User querybyusername(String username);
 }

@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class LoginController {
@@ -40,9 +37,15 @@ public class LoginController {
         }
     }
     @RequestMapping("/zhuChe")
-    public String zhuche(String username, String password){
-        userService.addUser(username,password);
-        return "index";
+    public String zhuche(Model model,String username, String password){
+        if (userService.querybyusername(username)!=null){
+            String name ="用户名"+username+"已存在";
+            model.addAttribute("name",name);
+            return "zhuche";
+        }else {
+            userService.addUser(username,password);
+            return "index";
+        }
     }
     @RequestMapping("/goZhuChe")
     public String gozhuche(){
@@ -89,7 +92,48 @@ public class LoginController {
         String username1 = "你好！"+ u;
         model.addAttribute("msg",userService.getall());
         model.addAttribute("msg1",username1);
+
         return "index1";
     }
+    @RequestMapping("/toaddfanzhi")
+    public String toaddfangzhi(){
+        return "index2";
+    }
+    @RequestMapping("/toindex")
+    public String toindex(HttpServletRequest request, Model model){
+        Object u = request.getSession().getAttribute("username");
+        Object p = request.getSession().getAttribute("pwd");
+        userService.querybyname((String)u,(String)p);
+        String username1 = "你好！"+ u;
+        model.addAttribute("msg",userService.getall());
+        model.addAttribute("msg1",username1);
+        return "index1";
+    }
+    @RequestMapping("/gaimima")
+    public String gaimima(HttpServletRequest request, Model model,String p1){
+        Object u = request.getSession().getAttribute("username");
+        System.out.println(u);
+        userService.gaimima((String)u,p1);
+        String username1 = "你好！"+ u;
+        model.addAttribute("msg1",username1);
+        return "login";
+    }
+    @RequestMapping("/togm")
+    public String togm(HttpServletRequest request, Model model){
+        Object u = request.getSession().getAttribute("username");
+        System.out.println(u);
+        String username1 = "你好！"+ u;
+        model.addAttribute("msg1",username1);
+        return "index3";
+    }
+    @RequestMapping("/zhuxiao")
+    public String zhuxiao(HttpServletRequest request){
+        Enumeration em = request.getSession().getAttributeNames();  //得到session中所有的属性名
+        while (em.hasMoreElements()) {
+            request.getSession().removeAttribute(em.nextElement().toString()); //遍历删除session中的值
+        }
+        return "login";
+    }
+
 
 }

@@ -18,8 +18,9 @@
     <h4 style="float: right;margin-right: 50px;color: cornflowerblue" th:text="${msg1}"></h4>
     <ul class="nav nav-tabs">
         <li role="presentation" ><a href="#">主页</a></li>
-        <li role="presentation"><a href="">添加房产信息</a></li>
-        <li role="presentation"><a href="#">修改用户信息</a></li>
+        <li role="presentation"><a th:href="@{/toaddfanzhi}">添加房产信息</a></li>
+        <li role="presentation"><a th:href="@{/togm}">修改用户信息</a></li>
+        <li role="presentation"><a th:href="@{/zhuxiao}">注销</a></li>
     </ul>
 </div>
 <div th:each="lists : ${msg}" style="width: 25%;height:30%;margin-right:10px;margin-top:100px;margin-left: 100px" class="col-sm-6 col-md-4">

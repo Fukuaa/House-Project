@@ -19,10 +19,10 @@
     <form th:action="@{/zhuChe}">
         <center>
             <h1 style="margin: 0px auto 40px auto;
-		text-align: center;">login</h1>
+		text-align: center;" th:text="${name}"></h1>
             输入账号:<input type="text" name="username"><br><br>
             输入密码:<input type="password" name="password"><br><br>
-            确认密码:<input ><br><br>
+            确认密码:<input type="password" name=""><br><br>
         </center>
         <center>
             <div style="align-items:center;">

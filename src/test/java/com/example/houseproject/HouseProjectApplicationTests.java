@@ -27,7 +27,7 @@ class HouseProjectApplicationTests {
         System.out.println(fangzhi);*/
         /*User user = userMapper.querybyname("zqf","123");
         System.out.println(user);*/
-        userService.addfangzhi("汉口学院",1111,2222,"1");
+        userService.gaimima("zqq","666");
     }
 
 }

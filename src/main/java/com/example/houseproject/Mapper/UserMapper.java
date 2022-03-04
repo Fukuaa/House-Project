@@ -23,4 +23,8 @@ public interface UserMapper{
     fangzhi querybyid(int hid);
 
     void addfangzhi(String dizhi, int mianji, int jiage, String tupian);
+
+    void gaimima(String username,String password);
+
+    User querybyusername(String username);
 }

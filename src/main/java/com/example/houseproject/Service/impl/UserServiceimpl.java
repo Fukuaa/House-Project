@@ -58,4 +58,14 @@ public class UserServiceimpl implements UserService {
         userMapper.addfangzhi(dizhi,mianji,jiage,tupian);
     }
 
+    @Override
+    public void gaimima(String u,String p) {
+        userMapper.gaimima(u,p);
+    }
+
+    @Override
+    public User querybyusername(String username) {
+        return userMapper.querybyusername(username);
+    }
+
 }

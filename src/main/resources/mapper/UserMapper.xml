@@ -8,6 +8,9 @@
     <select id="querybyname" parameterType="String" resultType="User">
         select * from user where username = #{username} and password = #{password};
     </select>
+    <select id="querybyusername" parameterType="String" resultType="User">
+        select * from user where username = #{username};
+    </select>
     <select id="getall"  resultType="fangzhi">
         select * from fangzhi;
     </select>
@@ -26,4 +29,7 @@
     <insert id="addfangzhi">
         insert into fangzhi(dizhi,mianji,jiage,tupian) values(#{dizhi},#{mianji},#{jiage},#{tupian});
     </insert>
+    <update id="gaimima">
+        update user set password =#{password} where username = #{username};
+    </update>
 </mapper>
