@@ -21,4 +21,8 @@ public interface UserService {
     void gaimima(String u,String p);
 
     User querybyusername(String username);
+
+    int gai(String nameuser, String password, int dengji);
+
+    int shan(String nameuser);
 }

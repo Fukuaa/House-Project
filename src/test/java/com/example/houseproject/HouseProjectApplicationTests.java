@@ -27,7 +27,7 @@ class HouseProjectApplicationTests {
         System.out.println(fangzhi);*/
         /*User user = userMapper.querybyname("zqf","123");
         System.out.println(user);*/
-        userService.gaimima("zqq","666");
+        userService.shan("zqq");
     }
 
 }

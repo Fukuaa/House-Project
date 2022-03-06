@@ -8,11 +8,13 @@
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="myblog.css">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+
 </head>
-<body>
+<body >
 <div>
     <h1 style="color: cornflowerblue;font:-apple-system-tall-body">房产管理系统</h1>
     <h4 style="float: right;margin-right: 50px;color: cornflowerblue" th:text="${msg1}"></h4>
@@ -20,11 +22,12 @@
         <li role="presentation" ><a href="#">主页</a></li>
         <li role="presentation"><a th:href="@{/toaddfanzhi}">添加房产信息</a></li>
         <li role="presentation"><a th:href="@{/togm}">修改用户信息</a></li>
+        <li role="presentation"><a th:href="@{/gaimima1}">管理用户</a></li>
         <li role="presentation"><a th:href="@{/zhuxiao}">注销</a></li>
     </ul>
 </div>
-<div th:each="lists : ${msg}" style="width: 25%;height:30%;margin-right:10px;margin-top:100px;margin-left: 100px" class="col-sm-6 col-md-4">
-    <img style="height:  200px;width: 250px;" th:src="${lists.tupian}"><br>
+<div th:each="lists : ${msg}" style="width: 20%;height:25%;margin: 20px;float: left;border: cornflowerblue 2px" class="col-sm-6 col-md-4">
+    <img style="height:  200px;width: 250px;border-radius:10px" th:src="${lists.tupian}"><br>
     地址：<h7 th:text="${lists.dizhi}"></h7><br>
     价格：<h7 th:text="${lists.jiage}"></h7>/平米<br>
     面积：<h7 th:text="${lists.mianji}"></h7>平米<br>

@@ -2,9 +2,6 @@ package com.example.houseproject.Mapper;
 
 import com.example.houseproject.Pojo.User;
 import com.example.houseproject.Pojo.fangzhi;
-import org.springframework.stereotype.Repository;
-import org.apache.ibatis.annotations.Mapper;
-
 
 
 import java.util.List;
@@ -27,4 +24,8 @@ public interface UserMapper{
     void gaimima(String username,String password);
 
     User querybyusername(String username);
+
+    int gai(String username, String password, int dengji);
+
+    int shan(String nameuser);
 }

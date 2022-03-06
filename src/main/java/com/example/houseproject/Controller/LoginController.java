@@ -28,11 +28,13 @@ public class LoginController {
         String username1 = "你好！"+ username;
         session.setAttribute("username",username);
         session.setAttribute("pwd",password);
+
         model.addAttribute("msg",userService.getall());
         model.addAttribute("msg1",username1);
         if (user==null){
             return "500";
         }else {
+            session.setAttribute("dengji",user.getDengji());
             return "index1";
         }
     }
@@ -53,7 +55,6 @@ public class LoginController {
     }
     @RequestMapping("/goxiugai")
     public String goxiugai(HttpSession session,int hid){
-        System.out.println(hid);
         session.setAttribute("f",hid);
         return "xiugai";
     }
@@ -61,7 +62,6 @@ public class LoginController {
     public String xiugai(Model model,HttpServletRequest request,String dizhi,int mianji,int jiage){
         int hid = (Integer) request.getSession().getAttribute("f") ;
         userService.xiugai(dizhi,mianji,jiage,hid);
-        System.out.println(dizhi+mianji+jiage+hid);
         Object u = request.getSession().getAttribute("username");
         Object p = request.getSession().getAttribute("pwd");
         userService.querybyname((String)u,(String)p);
@@ -112,16 +112,14 @@ public class LoginController {
     @RequestMapping("/gaimima")
     public String gaimima(HttpServletRequest request, Model model,String p1){
         Object u = request.getSession().getAttribute("username");
-        System.out.println(u);
         userService.gaimima((String)u,p1);
         String username1 = "你好！"+ u;
         model.addAttribute("msg1",username1);
-        return "login";
+        return "index";
     }
     @RequestMapping("/togm")
     public String togm(HttpServletRequest request, Model model){
         Object u = request.getSession().getAttribute("username");
-        System.out.println(u);
         String username1 = "你好！"+ u;
         model.addAttribute("msg1",username1);
         return "index3";
@@ -132,7 +130,60 @@ public class LoginController {
         while (em.hasMoreElements()) {
             request.getSession().removeAttribute(em.nextElement().toString()); //遍历删除session中的值
         }
-        return "login";
+        return "index";
+    }
+    @RequestMapping("/gaimima1")
+    public String gaimima1(Model model,HttpServletRequest request,HttpSession session){
+        Object u = request.getSession().getAttribute("username");
+        Object p = request.getSession().getAttribute("pwd");
+        User user = userService.querybyname((String)u,(String)p);
+        Object o = request.getSession().getAttribute("dengji");
+        String username1 = "你好！"+ u;
+        model.addAttribute("msg1",username1);
+        int i =   (int)request.getSession().getAttribute("dengji");
+        if(i==1){
+            model.addAttribute("user",userService.getAllUser());
+        }
+        return "index4";
+    }
+    @RequestMapping("/togm1")
+    public String togm1(){
+        return "index4";
+    }
+    @RequestMapping("/gai")
+    public String gai(String password,int dengji,HttpServletRequest request,Model model){
+        Object o =  request.getSession().getAttribute("xiugai");
+        userService.gai((String)o,password,dengji);
+        Object u = request.getSession().getAttribute("username");
+        Object p = request.getSession().getAttribute("pwd");
+
+        String username1 = "你好！"+ u;
+        int i =   (int)request.getSession().getAttribute("dengji");
+        if(i==1){
+            model.addAttribute("user",userService.getAllUser());
+        }
+        model.addAttribute("msg1",username1);
+        return "index4";
+    }
+    @RequestMapping("/shan")
+    public String shan(String username,HttpServletRequest request, Model model){
+        userService.shan(username);
+        Object u = request.getSession().getAttribute("username");
+
+
+        String username1 = "你好！"+ u;
+
+        model.addAttribute("msg1",username1);
+        int i =   (int)request.getSession().getAttribute("dengji");
+        if(i==1){
+            model.addAttribute("user",userService.getAllUser());
+        }
+        return "index4";
+    }
+    @RequestMapping("/goxiugai1")
+    public String goxiugai(String username,HttpSession session){
+        session.setAttribute("xiugai",username);
+        return "xiugai1";
     }
 
 

@@ -68,4 +68,14 @@ public class UserServiceimpl implements UserService {
         return userMapper.querybyusername(username);
     }
 
+    @Override
+    public int gai(String nameuser, String password, int dengji) {
+        return userMapper.gai(nameuser,password,dengji);
+    }
+
+    @Override
+    public int shan(String nameuser) {
+        return userMapper.shan(nameuser);
+    }
+
 }

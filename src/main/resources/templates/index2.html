@@ -13,7 +13,7 @@
   <title>首页</title>
   <style th:inline="text">
     body{
-      background: url("/templates/tu.jpg");
+      background: url("/src/main/images/tu.jpg");
     }
   </style>
 </head>
@@ -23,8 +23,9 @@
   <h4 style="float: right;margin-right: 50px;color: cornflowerblue" th:text="${msg1}"></h4>
   <ul class="nav nav-tabs">
     <li role="presentation" ><a th:href="@{/toindex}">主页</a></li>
-    <li role="presentation"><a href="">添加房产信息</a></li>
+    <li role="presentation"><a >添加房产信息</a></li>
     <li role="presentation"><a th:href="@{/togm}">修改用户信息</a></li>
+    <li role="presentation"><a th:href="@{/gaimima1}">管理用户</a></li>
     <li role="presentation"><a th:href="@{/zhuxiao}">注销</a></li>
   </ul>
 </div>

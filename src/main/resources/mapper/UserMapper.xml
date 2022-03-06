@@ -26,10 +26,16 @@
     <delete id="shanchu">
         delete from fangzhi where hid = #{hid};
     </delete>
+    <delete id="shan">
+        delete from user where username = #{username};
+    </delete>
     <insert id="addfangzhi">
         insert into fangzhi(dizhi,mianji,jiage,tupian) values(#{dizhi},#{mianji},#{jiage},#{tupian});
     </insert>
     <update id="gaimima">
         update user set password =#{password} where username = #{username};
+    </update>
+    <update id="gai">
+        update user set password =#{password},dengji = #{dengji} where username = #{username};
     </update>
 </mapper>
