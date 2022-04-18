@@ -2,11 +2,12 @@ package com.example.houseproject.Mapper;
 
 import com.example.houseproject.Pojo.User;
 import com.example.houseproject.Pojo.fangzhi;
+import org.apache.ibatis.annotations.Mapper;
 
 
 import java.util.List;
 
-//@Mapper//代表一个mybatis的mapper类
+@Mapper//代表一个mybatis的mapper类
 //@Repository
 public interface UserMapper{
     List<User> getAllUser();
@@ -19,7 +20,7 @@ public interface UserMapper{
 
     fangzhi querybyid(int hid);
 
-    void addfangzhi(String dizhi, int mianji, int jiage, String tupian);
+    void addfangzhi(String dizhi, int mianji, int jiage, String tupian,String zhuangtai);
 
     void gaimima(String username,String password);
 

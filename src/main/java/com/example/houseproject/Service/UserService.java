@@ -16,7 +16,7 @@ public interface UserService {
 
     fangzhi querybyid(int hid);
 
-    void addfangzhi(String dizhi, int mianji, int jiage, String tupian);
+    void addfangzhi(String dizhi, int mianji, int jiage, String tupian, String zhuangtai);
 
     void gaimima(String u,String p);
 

@@ -13,4 +13,5 @@ public class fangzhi {
     private int mianji;
     private int jiage;
     private String tupian;
+    private String zhuangtai;
 }

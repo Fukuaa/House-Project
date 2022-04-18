@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ public class LoginController {
     private UserService userService;
     @RequestMapping("/tologin")
     public String tologin(){
+
         return "login";
     }
     @RequestMapping("/login")
@@ -31,8 +33,10 @@ public class LoginController {
 
         model.addAttribute("msg",userService.getall());
         model.addAttribute("msg1",username1);
+
         if (user==null){
-            return "500";
+            model.addAttribute("farmName","用户名或密码错误");
+            return "index";
         }else {
             session.setAttribute("dengji",user.getDengji());
             return "index1";
@@ -84,12 +88,15 @@ public class LoginController {
         return "index1";
     }
     @RequestMapping("/addfangzhi")
-    public String addfangzhi(HttpServletRequest request, Model model,String dizhi,int mianji,int jiage,String tupian){
-        userService.addfangzhi(dizhi,mianji,jiage,tupian);
+    public String addfangzhi(HttpServletRequest request, Model model,String dizhi,int mianji,int jiage,String tupian,String zhuangtai,String a){
+        //System.out.println(a);
+        userService.addfangzhi(dizhi,mianji,jiage,tupian,zhuangtai);
         Object u = request.getSession().getAttribute("username");
         Object p = request.getSession().getAttribute("pwd");
         userService.querybyname((String)u,(String)p);
         String username1 = "你好！"+ u;
+
+
         model.addAttribute("msg",userService.getall());
         model.addAttribute("msg1",username1);
 

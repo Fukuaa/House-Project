@@ -30,7 +30,7 @@
         delete from user where username = #{username};
     </delete>
     <insert id="addfangzhi">
-        insert into fangzhi(dizhi,mianji,jiage,tupian) values(#{dizhi},#{mianji},#{jiage},#{tupian});
+        insert into fangzhi(dizhi,mianji,jiage,tupian,zhuangtai) values(#{dizhi},#{mianji},#{jiage},#{tupian},#{zhuangtai});
     </insert>
     <update id="gaimima">
         update user set password =#{password} where username = #{username};

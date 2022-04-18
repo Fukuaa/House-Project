@@ -54,8 +54,8 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public void addfangzhi(String dizhi, int mianji, int jiage, String tupian) {
-        userMapper.addfangzhi(dizhi,mianji,jiage,tupian);
+    public void addfangzhi(String dizhi, int mianji, int jiage, String tupian, String zhuangtai) {
+        userMapper.addfangzhi(dizhi,mianji,jiage,tupian,zhuangtai);
     }
 
     @Override

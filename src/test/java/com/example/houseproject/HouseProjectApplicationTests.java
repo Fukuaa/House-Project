@@ -19,15 +19,7 @@ class HouseProjectApplicationTests {
     UserService userService;
     @Test
     void contextLoads() {
-        /*List<fangzhi> list = userMapper.getall();
-        for (fangzhi l : list) {
-            System.out.println(l);
-        }
-        fangzhi fangzhi = new fangzhi();
-        System.out.println(fangzhi);*/
-        /*User user = userMapper.querybyname("zqf","123");
-        System.out.println(user);*/
-        userService.shan("zqq");
+        userService.addfangzhi("1",1,1,"1","1");
     }
 
 }
