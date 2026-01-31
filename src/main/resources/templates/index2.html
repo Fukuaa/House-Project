@@ -30,7 +30,7 @@
   <main class="split">
     <section class="card">
       <h2 class="card-title">添加房产</h2>
-      <form th:action="@{/addfangzhi}" method="post" class="form-grid">
+      <form th:action="@{/addfangzhi}" method="post" enctype="multipart/form-data" class="form-grid">
         <div class="field">
           <label>地址</label>
           <input type="text" name="dizhi" placeholder="请输入地址">
@@ -44,7 +44,11 @@
           <input type="number" name="jiage" placeholder="请输入价格">
         </div>
         <div class="field">
-          <label>图片</label>
+          <label>图片上传</label>
+          <input type="file" name="file" id="fileInput" accept="image/*">
+        </div>
+        <div class="field">
+          <label>图片地址（可选）</label>
           <input type="text" name="tupian" placeholder="例如 /images/tu.jpg">
         </div>
         <div class="field">
@@ -64,11 +68,31 @@
     </section>
 
     <section class="card">
-      <h2 class="card-title">录入提示</h2>
-      <p class="muted">图片建议使用 /images/ 目录下的资源。</p>
-      <div class="pill">推荐尺寸：1000 x 600</div>
+      <h2 class="card-title">上传预览</h2>
+      <div class="house-media" style="border-radius: 16px; height: 220px;">
+        <img id="preview" src="/images/tu.jpg" alt="预览图">
+      </div>
+      <div class="footer-note">支持 JPG/PNG/GIF，文件将保存在服务器目录并生成 /uploads/ 链接。</div>
     </section>
   </main>
 </div>
+
+<script>
+  const fileInput = document.getElementById("fileInput");
+  const preview = document.getElementById("preview");
+  if (fileInput) {
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) {
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        preview.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+</script>
 </body>
 </html>
