@@ -1,56 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改密码</title>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
-<body >
-<div>
-    <h1 style="color: cornflowerblue;font:-apple-system-tall-body">房产管理系统</h1>
-    <h4 style="float: right;margin-right: 50px;color: cornflowerblue" th:text="${msg1}"></h4>
-    <ul class="nav nav-tabs">
-        <li role="presentation" ><a th:href="@{/toindex}">主页</a></li>
-        <li role="presentation"><a th:href="@{/toaddfanzhi}">添加房产信息</a></li>
-        <li role="presentation"><a >修改用户信息</a></li>
-        <li role="presentation"><a th:href="@{/gaimima1}">管理用户</a></li>
-        <li role="presentation"><a th:href="@{/zhuxiao}">注销</a></li>
-    </ul>
+<body class="app">
+<div class="container">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">HP</div>
+            <div>
+                <h1>房产管理系统</h1>
+                <p>修改当前账号信息</p>
+            </div>
+        </div>
+        <div class="user-chip" th:text="${msg1}"></div>
+    </header>
+
+    <nav class="nav-bar">
+        <a class="nav-link" th:href="@{/toindex}">主页</a>
+        <a class="nav-link" th:href="@{/toaddfanzhi}">添加房产信息</a>
+        <a class="nav-link" href="#">修改用户信息</a>
+        <a class="nav-link" th:href="@{/gaimima1}">管理用户</a>
+        <a class="nav-link" th:href="@{/zhuxiao}">注销</a>
+    </nav>
+
+    <main class="split">
+        <section class="card">
+            <h2 class="card-title">修改密码</h2>
+            <form th:action="@{/gaimima}" method="post" class="form-grid">
+                <div class="field">
+                    <label>新密码</label>
+                    <input type="password" name="p1" autocomplete="new-password">
+                </div>
+                <div class="field">
+                    <label>确认密码</label>
+                    <input type="password" name="p2" autocomplete="new-password">
+                </div>
+                <div class="error" th:text="${error}"></div>
+                <div class="actions">
+                    <button class="btn" type="submit">完成</button>
+                    <a class="btn ghost" th:href="@{/toindex}">返回</a>
+                </div>
+            </form>
+        </section>
+        <section class="card">
+            <h2 class="card-title">安全建议</h2>
+            <p class="muted">请使用长度不少于 6 位的密码，包含数字与字母。</p>
+        </section>
+    </main>
 </div>
-
-<div style="border-radius: 15px;
-		background-clip: padding-box;
-		margin: 180px auto;
-		width: 350px;
-		padding: 15px 35px 15px 35px;
-		background: white;
-		border: 1px solid wheat;
-		box-shadow: 0 0 25px whitesmoke;" >
-    <form th:action="@{/gaimima}">
-        <center>
-            <h1 style="margin: 0px auto 40px auto;
-		text-align: center;" th:text="${msg1}"></h1>
-            输入密码<input type="text" name="p1"><br><br>
-            确认密码<input type="text" name=""><br><br>
-        </center>
-        <center>
-            <div style="align-items:center;">
-                <button  type="submit">完成</button>
-            </div><br>
-
-        </center>
-
-
-    </form>
-
-</div>
-</body >
+</body>
 </html>

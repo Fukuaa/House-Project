@@ -20,6 +20,23 @@ public class Loginconfig implements WebMvcConfigurer {
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/")
-                .excludePathPatterns("/login");
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/tologin")
+                .excludePathPatterns("/goZhuChe")
+                .excludePathPatterns("/zhuChe")
+                .excludePathPatterns("/error")
+                .excludePathPatterns("/favicon.ico")
+                .excludePathPatterns("/css/**")
+                .excludePathPatterns("/js/**")
+                .excludePathPatterns("/images/**")
+                .excludePathPatterns("/webjars/**")
+                .excludePathPatterns("/static/**")
+                .excludePathPatterns("/**/*.css")
+                .excludePathPatterns("/**/*.js")
+                .excludePathPatterns("/**/*.png")
+                .excludePathPatterns("/**/*.jpg")
+                .excludePathPatterns("/**/*.jpeg")
+                .excludePathPatterns("/**/*.gif")
+                .excludePathPatterns("/**/*.svg");
     }
 }

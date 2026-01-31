@@ -1,53 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
-    <style>
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房产管理系统 - 登录</title>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
-<body>
-
-
-<h1 style="color: cornflowerblue;font:-apple-system-tall-body;margin: 10px">房产管理系统</h1>
-<div style="border-radius: 15px;
-		background-clip: padding-box;
-		margin: 180px auto;
-		width: 350px;
-		padding: 15px 35px 15px 35px;
-		background: white;
-		border: 1px solid wheat;
-		box-shadow: 0 0 25px whitesmoke;" >
-    <form th:action="@{/login}">
-        <center>
-            <h5 style="margin: 0px auto 40px auto;
-		text-align: center;color: cornflowerblue " th:if="${farmName} eq null">请先登录</h5>
-            <h5 style="margin: 0px auto 40px auto;
-		text-align: center;color: red  " th:text="${farmName}" ></h5>
-            账号<input type="text" name="username"><br><br>
-            密码<input type="password" name="password"><br>
-        </center>
-        <center>
-            <div style="align-items:center;">
-                记住我<input style="text-align: left;
-		margin:10px;" type="checkbox" name="remember"><br>
-                <button id="login_btn"  type="submit">登录</button>
+<body class="app">
+<div class="container">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">HP</div>
+            <div>
+                <h1>房产管理系统</h1>
+                <p>简单、清晰、可管理的房产展示与维护</p>
             </div>
-        </center>
+        </div>
+    </header>
 
+    <main class="split">
+        <section class="card">
+            <h2 class="card-title">欢迎回来</h2>
+            <p class="muted">请输入账号密码继续操作。</p>
+            <form th:action="@{/login}" method="post" class="form-grid">
+                <div class="field">
+                    <label>账号</label>
+                    <input type="text" name="username" autocomplete="username">
+                </div>
+                <div class="field">
+                    <label>密码</label>
+                    <input type="password" name="password" autocomplete="current-password">
+                </div>
+                <div class="error" th:text="${farmName}"></div>
+                <div class="actions">
+                    <button id="login_btn" class="btn" type="submit">登录</button>
+                    <a class="btn ghost" th:href="@{/goZhuChe}">注册</a>
+                </div>
+            </form>
+        </section>
 
-    </form>
-    <div style="text-align: right">
-        没有账号？点击<a th:href="@{/goZhuChe}">注册</a>
-    </div>
+        <section class="card">
+            <h2 class="card-title">系统亮点</h2>
+            <p class="muted">快速录入房源、集中管理用户、统一展示信息。</p>
+            <div class="footer-note">建议使用 Chrome / Edge 以获得最佳体验。</div>
+        </section>
+    </main>
 </div>
 </body>
 </html>

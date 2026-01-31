@@ -3,6 +3,7 @@ package com.example.houseproject.Mapper;
 import com.example.houseproject.Pojo.User;
 import com.example.houseproject.Pojo.fangzhi;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 
 import java.util.List;
@@ -12,21 +13,22 @@ import java.util.List;
 public interface UserMapper{
     List<User> getAllUser();
 
-    User querybyname(String username, String password);
+    User querybyname(@Param("username") String username, @Param("password") String password);
     List getall();
-    int addUser(String username,String password);
-    int xiugai(String dizhi,int mianji,int jiage,int hid);
-    int shanchu(int hid);
+    int addUser(@Param("username") String username, @Param("password") String password);
+    int xiugai(@Param("dizhi") String dizhi, @Param("mianji") int mianji, @Param("jiage") int jiage, @Param("hid") int hid);
+    int shanchu(@Param("hid") int hid);
 
-    fangzhi querybyid(int hid);
+    fangzhi querybyid(@Param("hid") int hid);
 
-    void addfangzhi(String dizhi, int mianji, int jiage, String tupian,String zhuangtai);
+    void addfangzhi(@Param("dizhi") String dizhi, @Param("mianji") int mianji, @Param("jiage") int jiage,
+                    @Param("tupian") String tupian, @Param("zhuangtai") String zhuangtai);
 
-    void gaimima(String username,String password);
+    void gaimima(@Param("username") String username, @Param("password") String password);
 
-    User querybyusername(String username);
+    User querybyusername(@Param("username") String username);
 
-    int gai(String username, String password, int dengji);
+    int gai(@Param("username") String username, @Param("password") String password, @Param("dengji") int dengji);
 
-    int shan(String nameuser);
+    int shan(@Param("username") String username);
 }

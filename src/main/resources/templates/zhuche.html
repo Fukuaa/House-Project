@@ -1,37 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注册</title>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
-<body>
-<center>
-    <h2 style="color: cornflowerblue">注册成功将跳转到首页</h2>
-</center>
-<div style="border-radius: 15px;
-		background-clip: padding-box;
-		margin: 180px auto;
-		width: 350px;
-		padding: 15px 35px 15px 35px;
-		background: white;
-		border: 1px solid wheat;
-		box-shadow: 0 0 25px whitesmoke;" >
-    <form th:action="@{/zhuChe}">
-        <center>
-            <h1 style="margin: 0px auto 40px auto;
-		text-align: center;" th:text="${name}"></h1>
-            输入账号:<input type="text" name="username"><br><br>
-            输入密码:<input type="password" name="password"><br><br>
-            确认密码:<input type="password" name=""><br><br>
-        </center>
-        <center>
-            <div style="align-items:center;">
-                <button  type="submit">完成</button>
+<body class="app">
+<div class="container">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">HP</div>
+            <div>
+                <h1>创建新账号</h1>
+                <p>注册成功后将跳转到首页</p>
             </div>
-        </center>
+        </div>
+    </header>
 
-
-    </form>
+    <main class="split">
+        <section class="card">
+            <h2 class="card-title">注册</h2>
+            <div class="error" th:text="${name}"></div>
+            <form th:action="@{/zhuChe}" method="post" class="form-grid">
+                <div class="field">
+                    <label>账号</label>
+                    <input type="text" name="username" autocomplete="username">
+                </div>
+                <div class="field">
+                    <label>密码</label>
+                    <input type="password" name="password" autocomplete="new-password">
+                </div>
+                <div class="field">
+                    <label>确认密码</label>
+                    <input type="password" name="passwordConfirm" autocomplete="new-password">
+                </div>
+                <div class="actions">
+                    <button class="btn" type="submit">完成</button>
+                    <a class="btn ghost" th:href="@{/}">返回登录</a>
+                </div>
+            </form>
+        </section>
+        <section class="card">
+            <h2 class="card-title">安全提示</h2>
+            <p class="muted">建议使用包含数字与字母的密码。</p>
+        </section>
+    </main>
 </div>
 </body>
 </html>

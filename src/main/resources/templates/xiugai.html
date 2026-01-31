@@ -1,34 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改房产</title>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
-<body>
-<div style="border-radius: 15px;
-		background-clip: padding-box;
-		margin: 180px auto;
-		width: 350px;
-		padding: 15px 35px 15px 35px;
-		background: white;
-		border: 1px solid wheat;
-		box-shadow: 0 0 25px whitesmoke;" >
-    <form th:action="@{/xiugai}">
-        <center>
-            <h1 style="margin: 0px auto 40px auto;
-		text-align: center;"></h1>
-            输入地址:<input type="text" name="dizhi"><br><br>
-            输入面积:<input type="text" name="mianji"><br><br>
-            输入价格:<input type="text" name="jiage"><br><br>
-        </center>
-        <center>
-            <div style="align-items:center;">
-                <button  type="submit">完成</button>
+<body class="app">
+<div class="container">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">HP</div>
+            <div>
+                <h1>修改房产</h1>
+                <p>更新地址、面积与价格信息</p>
             </div>
-        </center>
+        </div>
+    </header>
 
-
-    </form>
+    <main class="split">
+        <section class="card">
+            <h2 class="card-title">修改房产</h2>
+            <form th:action="@{/xiugai}" method="post" class="form-grid">
+                <div class="field">
+                    <label>地址</label>
+                    <input type="text" name="dizhi">
+                </div>
+                <div class="field">
+                    <label>面积</label>
+                    <input type="number" name="mianji">
+                </div>
+                <div class="field">
+                    <label>价格</label>
+                    <input type="number" name="jiage">
+                </div>
+                <div class="actions">
+                    <button class="btn" type="submit">完成</button>
+                    <a class="btn ghost" th:href="@{/toindex}">返回</a>
+                </div>
+            </form>
+        </section>
+        <section class="card">
+            <h2 class="card-title">提示</h2>
+            <p class="muted">建议填写真实有效的房源信息。</p>
+        </section>
+    </main>
 </div>
 </body>
 </html>

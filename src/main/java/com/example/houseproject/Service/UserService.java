@@ -10,6 +10,7 @@ public interface UserService {
     List<User> querybyname();
     List getall();
     User querybyname(String username, String password);
+    User login(String username, String password);
     int addUser(String username,String password);
     int xiugai(String dizhi,int mianji,int jiage,int hid);
     int shanchu(int hid);

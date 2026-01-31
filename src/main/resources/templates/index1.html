@@ -1,45 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="myblog.css">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>首页</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>房产管理系统</title>
+    <link rel="stylesheet" href="/css/app.css">
 </head>
-<body >
-<div>
-    <h1 style="color: cornflowerblue;font:-apple-system-tall-body">房产管理系统</h1>
-    <h4 style="float: right;margin-right: 50px;color: cornflowerblue" th:text="${msg1}"></h4>
-    <ul class="nav nav-tabs">
-        <li role="presentation" ><a href="#">主页</a></li>
-        <li role="presentation"><a th:href="@{/toaddfanzhi}">添加房产信息</a></li>
-        <li role="presentation"><a th:href="@{/togm}">修改用户信息</a></li>
-        <li role="presentation"><a th:href="@{/gaimima1}">管理用户</a></li>
-        <li role="presentation"><a th:href="@{/zhuxiao}">注销</a></li>
-    </ul>
+<body class="app">
+<div class="container">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">HP</div>
+            <div>
+                <h1>房产管理系统</h1>
+                <p>房源清单与状态管理</p>
+            </div>
+        </div>
+        <div class="user-chip" th:text="${msg1}"></div>
+    </header>
+
+    <nav class="nav-bar">
+        <a class="nav-link" href="#">主页</a>
+        <a class="nav-link" th:href="@{/toaddfanzhi}">添加房产信息</a>
+        <a class="nav-link" th:href="@{/togm}">修改用户信息</a>
+        <a class="nav-link" th:href="@{/gaimima1}">管理用户</a>
+        <a class="nav-link" th:href="@{/zhuxiao}">注销</a>
+    </nav>
+
+    <main class="card-grid">
+        <div class="house-card" th:each="lists : ${msg}">
+            <div class="house-media">
+                <img th:src="${lists.tupian}" alt="房源图片">
+            </div>
+            <div class="house-body">
+                <div class="house-row">
+                    <span class="label">地址</span>
+                    <span class="value" th:text="${lists.dizhi}"></span>
+                </div>
+                <div class="house-row">
+                    <span class="label">价格</span>
+                    <span class="value"><span th:text="${lists.jiage}"></span>/平米</span>
+                </div>
+                <div class="house-row">
+                    <span class="label">面积</span>
+                    <span class="value"><span th:text="${lists.mianji}"></span>平米</span>
+                </div>
+                <div class="house-row">
+                    <span class="label">状态</span>
+                    <span class="status" th:text="${lists.zhuangtai}"></span>
+                </div>
+                <div class="house-actions">
+                    <form th:action="@{/shanchu}" method="post" style="display:inline;">
+                        <input type="hidden" name="hid" th:value="${lists.hid}">
+                        <button type="submit" class="btn danger">删除</button>
+                    </form>
+                    <a th:href="@{/goxiugai(hid=${lists.hid})}" class="btn ghost" role="button">修改</a>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
-<div th:each="lists : ${msg}" style="width: 20%;height:25%;margin: 20px;float: left;border: cornflowerblue 2px" class="col-sm-6 col-md-4">
-    <img style="height:  200px;width: 250px;border-radius:10px" th:src="${lists.tupian}"><br>
-    地址：<h7 th:text="${lists.dizhi}"></h7><br>
-    价格：<h7 th:text="${lists.jiage}"></h7>/平米<br>
-    面积：<h7 th:text="${lists.mianji}"></h7>平米<br>
-    状态：<h7 th:text="${lists.zhuangtai}"></h7><br>
-    <p><a th:href="'http://localhost:8081/shanchu?hid='+${lists.hid}" class="btn btn-primary" role="button">删除</a> <a th:href="'http://localhost:8081/goxiugai?hid='+${lists.hid}"  class="btn btn-default" role="button">修改</a></p>
-</div>
-
-
-
-
-
-
 </body>
-
 </html>

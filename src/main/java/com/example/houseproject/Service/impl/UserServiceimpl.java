@@ -7,12 +7,16 @@ import com.example.houseproject.Pojo.fangzhi;
 import com.example.houseproject.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class UserServiceimpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Override
     public List<User> getAllUser() {
         return userMapper.getAllUser();
@@ -20,7 +24,7 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public List<User> querybyname() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -30,12 +34,35 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public User querybyname(String username, String password) {
-        return userMapper.querybyname(username,password);
+        return login(username, password);
+    }
+
+    @Override
+    public User login(String username, String password) {
+        if (username == null || password == null) {
+            return null;
+        }
+        User user = userMapper.querybyusername(username);
+        if (user == null || user.getPassword() == null) {
+            return null;
+        }
+        String stored = user.getPassword();
+        if (looksLikeBcrypt(stored)) {
+            return passwordEncoder.matches(password, stored) ? user : null;
+        }
+        if (stored.equals(password)) {
+            String encoded = passwordEncoder.encode(password);
+            userMapper.gaimima(username, encoded);
+            user.setPassword(encoded);
+            return user;
+        }
+        return null;
     }
 
     @Override
     public int addUser(String username, String password) {
-        return userMapper.addUser(username,password);
+        String encoded = passwordEncoder.encode(password);
+        return userMapper.addUser(username, encoded);
     }
 
     @Override
@@ -60,7 +87,8 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public void gaimima(String u,String p) {
-        userMapper.gaimima(u,p);
+        String encoded = passwordEncoder.encode(p);
+        userMapper.gaimima(u, encoded);
     }
 
     @Override
@@ -70,7 +98,8 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public int gai(String nameuser, String password, int dengji) {
-        return userMapper.gai(nameuser,password,dengji);
+        String encoded = passwordEncoder.encode(password);
+        return userMapper.gai(nameuser, encoded, dengji);
     }
 
     @Override
@@ -78,4 +107,7 @@ public class UserServiceimpl implements UserService {
         return userMapper.shan(nameuser);
     }
 
+    private boolean looksLikeBcrypt(String value) {
+        return value.startsWith("$2a$") || value.startsWith("$2b$") || value.startsWith("$2y$");
+    }
 }
