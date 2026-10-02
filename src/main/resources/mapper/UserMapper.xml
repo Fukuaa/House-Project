@@ -33,7 +33,9 @@
         update fangzhi set deleted = 1, deleted_at = now() where hid = #{hid} and deleted = 0;
     </update>
     <update id="restore">
-        update fangzhi set deleted = 0, deleted_at = null where hid = #{hid} and deleted = 1;
+        update fangzhi set deleted = 0, deleted_at = null,
+            zhuangtai = case when zhuangtai = '已售出' then '售卖中' else zhuangtai end
+        where hid = #{hid} and deleted = 1;
     </update>
     <delete id="purge">
         delete from fangzhi where hid = #{hid} and deleted = 1;

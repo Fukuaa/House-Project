@@ -8,7 +8,7 @@
         <div>
             <p class="eyebrow">Recycle</p>
             <h1>回收站</h1>
-            <p class="lede">下架的房子可以恢复。已售出的房子留在这里，只能彻底删除。</p>
+            <p class="lede">下架和已售出的房子都可以恢复。已售出的恢复后会变成售卖中。</p>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
                 <p class="more">查看详情</p>
             </a>
             <div class="listing-actions">
-                <form th:action="@{/restore}" method="post" th:if="${lists.zhuangtai != '已售出'}">
+                <form th:action="@{/restore}" method="post">
                     <input type="hidden" name="hid" th:value="${lists.hid}">
                     <button type="submit">恢复</button>
                 </form>

@@ -84,10 +84,6 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public int restore(int hid) {
-        fangzhi house = userMapper.querybyid(hid);
-        if (house == null || "已售出".equals(house.getZhuangtai())) {
-            return 0;
-        }
         return userMapper.restore(hid);
     }
 
