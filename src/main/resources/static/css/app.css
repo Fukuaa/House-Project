@@ -50,7 +50,8 @@ img { max-width: 100%; }
 }
 
 .top-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 28px;
   min-height: 72px;
@@ -101,11 +102,9 @@ img { max-width: 100%; }
 }
 
 .top-side {
-  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 14px;
-  flex: 0 0 auto;
 }
 
 .who {
@@ -359,6 +358,8 @@ img { max-width: 100%; }
 
 .btn:hover { background: var(--pine-2); color: #fff; }
 
+.nav-login { min-height: 36px; padding: 0 16px; font-size: 14px; }
+
 .btn.ghost {
   background: transparent;
   color: var(--ink);
@@ -469,8 +470,16 @@ img { max-width: 100%; }
 
 @media (max-width: 720px) {
   .container { width: min(1180px, calc(100% - 28px)); }
-  .top-row { min-height: 64px; gap: 12px; flex-wrap: wrap; padding: 8px 0; }
-  .nav { order: 3; width: 100%; overflow-x: auto; }
+  .top-row {
+    min-height: 64px;
+    gap: 8px 12px;
+    padding: 8px 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand side" "nav nav";
+  }
+  .wordmark { grid-area: brand; }
+  .nav { grid-area: nav; width: auto; overflow-x: auto; }
+  .top-side { grid-area: side; }
   .nav a { white-space: nowrap; }
   .gallery { grid-template-columns: 1fr; gap: 26px; }
   .intro { flex-direction: column; align-items: flex-start; padding-top: 28px; }

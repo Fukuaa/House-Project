@@ -12,7 +12,7 @@ public class LoginIterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession(false);
         Object o = session == null ? null : session.getAttribute("username");
         if (o == null) {
-            response.sendRedirect("/");
+            response.sendRedirect(request.getContextPath() + "/login");
             return false;
         }
         return true;

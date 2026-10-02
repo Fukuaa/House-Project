@@ -8,15 +8,18 @@
         <div>
             <p class="eyebrow">Collection</p>
             <h1>全部房源</h1>
-            <p class="lede">下架后会进入回收站，可以恢复，也可以彻底清除。</p>
+            <p class="lede" th:if="${session.username != null}">下架后会进入回收站，可以恢复，也可以彻底清除。</p>
+            <p class="lede" th:if="${session.username == null}">先看看在架的房子。登录后才能新增、编辑和下架。</p>
         </div>
-        <a class="btn" th:href="@{/toaddfanzhi}">新增房源</a>
+        <a class="btn" th:if="${session.username != null}" th:href="@{/toaddfanzhi}">新增房源</a>
+        <a class="btn" th:if="${session.username == null}" th:href="@{/login}">登录后管理</a>
     </div>
 
     <div class="empty" th:if="${#lists.isEmpty(msg)}">
         <h2>还没有房源</h2>
-        <p>添加一套，或者去回收站把下架的房子找回来。</p>
-        <a class="btn" th:href="@{/toaddfanzhi}">新增房源</a>
+        <p th:if="${session.username != null}">添加一套，或者去回收站把下架的房子找回来。</p>
+        <p th:if="${session.username == null}">当前没有在架房源。</p>
+        <a class="btn" th:if="${session.username != null}" th:href="@{/toaddfanzhi}">新增房源</a>
     </div>
 
     <section class="gallery" th:unless="${#lists.isEmpty(msg)}">
@@ -30,7 +33,7 @@
             </div>
             <h3 th:text="${lists.dizhi}"></h3>
             <p class="meta"><span th:text="${lists.mianji}"></span> 平米</p>
-            <div class="listing-actions">
+            <div class="listing-actions" th:if="${session.username != null}">
                 <a th:href="@{/goxiugai(hid=${lists.hid})}">编辑</a>
                 <form th:action="@{/shanchu}" method="post">
                     <input type="hidden" name="hid" th:value="${lists.hid}">

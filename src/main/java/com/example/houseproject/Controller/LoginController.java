@@ -31,12 +31,17 @@ public class LoginController {
     private String uploadDir;
 
     @GetMapping("/")
-    public String index() {
-        return "index";
+    public String home(Model model) {
+        model.addAttribute("msg", userService.getall());
+        return "index1";
     }
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("username") != null) {
+            return "redirect:/";
+        }
         return "index";
     }
 
@@ -61,10 +66,8 @@ public class LoginController {
         request.changeSessionId();
         session.setAttribute("username", user.getUsername());
         session.setAttribute("dengji", user.getDengji());
-        model.addAttribute("msg", userService.getall());
-        model.addAttribute("msg1", greeting(user.getUsername()));
         log.info("Login success: username={}", user.getUsername());
-        return "index1";
+        return "redirect:/";
     }
 
     @PostMapping("/zhuChe")
@@ -186,15 +189,8 @@ public class LoginController {
     }
 
     @GetMapping("/toindex")
-    public String toindex(HttpServletRequest request, Model model) {
-        Object u = request.getSession().getAttribute("username");
-        if (u == null) {
-            log.warn("Access toindex denied: not logged in");
-            return "redirect:/";
-        }
-        model.addAttribute("msg", userService.getall());
-        model.addAttribute("msg1", greeting((String) u));
-        return "index1";
+    public String toindex() {
+        return "redirect:/";
     }
 
     @PostMapping("/gaimima")
@@ -210,7 +206,7 @@ public class LoginController {
         userService.gaimima((String) u, p1);
         model.addAttribute("msg1", greeting((String) u));
         log.info("Password changed: username={}", u);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/togm")
@@ -228,7 +224,7 @@ public class LoginController {
             session.invalidate();
         }
         log.info("Logout: username={}", u);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/gaimima1")
