@@ -32,7 +32,9 @@
 
 ### 1) 数据库初始化
 
-导入项目根目录的 `house-project.sql`：
+本机数据库已迁移到 Ubuntu Docker，固定地址为 `192.168.240.10:3306`。原有 `house-project` 数据已恢复，使用此虚拟机时无需重新导入。
+
+新建环境时，导入项目根目录的 `house-project.sql`：
 
 ```sql
 CREATE DATABASE `house-project` ...
@@ -47,6 +49,8 @@ CREATE DATABASE `house-project` ...
 - `DB_URL`
 - `DB_USER`
 - `DB_PASS`
+
+默认数据库地址为 `192.168.240.10:3306`，用户名及密码保持迁移前的配置。Ubuntu 使用静态 IP，MySQL 容器配置了固定端口、持久化数据卷和 `unless-stopped` 重启策略；虚拟机启动并运行 Docker 后数据库会自动启动。虚拟机关机时项目无法访问数据库。
 
 ### 3) 启动项目
 
