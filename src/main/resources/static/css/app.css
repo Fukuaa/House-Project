@@ -276,7 +276,7 @@ img { max-width: 100%; }
 
 .listing-actions .danger:hover { color: var(--danger); }
 
-.is-bin .listing-photo img { filter: saturate(0.55); }
+.is-bin .listing-photo img { filter: grayscale(1); }
 
 .empty {
   margin: 12px 0 80px;
