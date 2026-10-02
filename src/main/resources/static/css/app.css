@@ -415,7 +415,11 @@ img { max-width: 100%; }
 }
 
 .gate-visual { position: relative; min-height: 100vh; background: #231e18; }
-.gate-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gate-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; }
+.gate-visual img.panorama { object-position: right 42%; }
+@media (max-width: 980px) {
+  .gate-visual img.panorama { object-position: center 40%; }
+}
 .gate-visual::after {
   content: "";
   position: absolute;
