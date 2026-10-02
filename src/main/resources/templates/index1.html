@@ -12,7 +12,6 @@
             <p class="lede" th:if="${session.username == null}">先看看在架的房子。登录后才能新增、编辑和下架。</p>
         </div>
         <a class="btn" th:if="${session.username != null}" th:href="@{/toaddfanzhi}">新增房源</a>
-        <a class="btn" th:if="${session.username == null}" th:href="@{/login}">登录后管理</a>
     </div>
 
     <div class="empty" th:if="${#lists.isEmpty(msg)}">
