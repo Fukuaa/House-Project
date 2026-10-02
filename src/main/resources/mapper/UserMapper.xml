@@ -43,12 +43,21 @@
     <delete id="shan">
         delete from user where username = #{username};
     </delete>
-    <insert id="addfangzhi">
+    <insert id="addfangzhi" useGeneratedKeys="true" keyProperty="hid">
         insert into fangzhi(dizhi,mianji,jiage,tupian,zhuangtai,jiaju,shuidian,zuqi,zhuangxiu,chanquan,wuye)
         values(#{dizhi},#{mianji},#{jiage},#{tupian},#{zhuangtai},
             #{jiaju,jdbcType=VARCHAR},#{shuidian,jdbcType=VARCHAR},#{zuqi,jdbcType=VARCHAR},
             #{zhuangxiu,jdbcType=VARCHAR},#{chanquan,jdbcType=VARCHAR},#{wuye,jdbcType=VARCHAR});
     </insert>
+    <insert id="addImage">
+        insert into fangzhi_image(hid, url, sort_no) values(#{hid}, #{url}, #{sortNo});
+    </insert>
+    <select id="listImages" resultType="string">
+        select url from fangzhi_image where hid = #{hid} order by sort_no, id;
+    </select>
+    <delete id="deleteImages">
+        delete from fangzhi_image where hid = #{hid};
+    </delete>
     <update id="gaimima">
         update user set password =#{password} where username = #{username};
     </update>

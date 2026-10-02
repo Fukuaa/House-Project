@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -61,7 +64,12 @@ public class LoginController {
         if ("已售出".equals(house.getZhuangtai()) && house.getDeleted() == 0) {
             return "redirect:/";
         }
+        List<String> photos = userService.listImages(hid);
+        if (photos.isEmpty()) {
+            photos = Collections.singletonList(isBlank(house.getTupian()) ? "/images/tu.jpg" : house.getTupian());
+        }
         model.addAttribute("house", house);
+        model.addAttribute("photos", photos);
         return "house";
     }
 
@@ -207,7 +215,7 @@ public class LoginController {
 
     @PostMapping("/addfangzhi")
     public String addfangzhi(HttpServletRequest request, Model model, String dizhi, int mianji, int jiage,
-                             MultipartFile file, String tupian, String zhuangtai,
+                             MultipartFile[] files, String tupian, String zhuangtai,
                              String jiaju, String shuidian, String zuqi, String zhuangxiu, String chanquan, String wuye) {
         String error = detailError(zhuangtai, jiaju, shuidian, zuqi, zhuangxiu, chanquan, wuye);
         if (error != null) {
@@ -217,17 +225,16 @@ public class LoginController {
             return "index2";
         }
         boolean rent = HouseStatus.isRent(zhuangtai);
-        String imageUrl = saveUpload(file);
-        if (imageUrl == null || imageUrl.isEmpty()) {
-            imageUrl = (tupian == null || tupian.trim().isEmpty()) ? "/images/tu.jpg" : tupian.trim();
-        }
+        List<String> photos = saveUploads(files, tupian);
+        String imageUrl = photos.get(0);
         userService.addfangzhi(dizhi, mianji, jiage, imageUrl, zhuangtai,
                 rent ? trimToNull(jiaju) : null,
                 rent ? trimToNull(shuidian) : null,
                 rent ? trimToNull(zuqi) : null,
                 rent ? null : trimToNull(zhuangxiu),
                 rent ? null : trimToNull(chanquan),
-                rent ? null : trimToNull(wuye));
+                rent ? null : trimToNull(wuye),
+                photos);
         Object u = request.getSession().getAttribute("username");
         model.addAttribute("msg", userService.getall());
         model.addAttribute("msg1", greeting((String) u));
@@ -402,6 +409,25 @@ public class LoginController {
 
     private String greeting(String username) {
         return "你好！" + username;
+    }
+
+    private List<String> saveUploads(MultipartFile[] files, String tupian) {
+        List<String> urls = new ArrayList<String>();
+        if (files != null) {
+            for (MultipartFile file : files) {
+                String url = saveUpload(file);
+                if (url != null) {
+                    urls.add(url);
+                }
+            }
+        }
+        if (!isBlank(tupian)) {
+            urls.add(tupian.trim());
+        }
+        if (urls.isEmpty()) {
+            urls.add("/images/tu.jpg");
+        }
+        return urls;
     }
 
     private String saveUpload(MultipartFile file) {

@@ -52,6 +52,20 @@ public class FangzhiSchema {
         if (moved > 0) {
             log.info("Moved sold houses into recycle: {}", moved);
         }
+        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS fangzhi_image ("
+                + "id INT AUTO_INCREMENT PRIMARY KEY,"
+                + "hid INT NOT NULL,"
+                + "url VARCHAR(255) NOT NULL,"
+                + "sort_no INT NOT NULL DEFAULT 0,"
+                + "INDEX idx_fangzhi_image_hid (hid)"
+                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+        int copied = jdbcTemplate.update("INSERT INTO fangzhi_image (hid, url, sort_no) "
+                + "SELECT hid, tupian, 0 FROM fangzhi f "
+                + "WHERE tupian IS NOT NULL AND tupian <> '' "
+                + "AND NOT EXISTS (SELECT 1 FROM fangzhi_image i WHERE i.hid = f.hid)");
+        if (copied > 0) {
+            log.info("Backfilled house photos: {}", copied);
+        }
     }
 
     private void addTextColumn(String column) {

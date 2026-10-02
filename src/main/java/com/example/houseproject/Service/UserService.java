@@ -24,7 +24,9 @@ public interface UserService {
 
     void addfangzhi(String dizhi, int mianji, int jiage, String tupian, String zhuangtai,
                     String jiaju, String shuidian, String zuqi,
-                    String zhuangxiu, String chanquan, String wuye);
+                    String zhuangxiu, String chanquan, String wuye, List<String> photos);
+
+    List<String> listImages(int hid);
 
     void gaimima(String u,String p);
 

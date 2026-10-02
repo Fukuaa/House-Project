@@ -8,7 +8,7 @@
         <div>
             <p class="eyebrow">New</p>
             <h1>登记一套房子</h1>
-            <p class="lede">出售填写装修、产权和物业费。出租填写家具、水电费和最低租期。</p>
+            <p class="lede">可以一次上传多张图片，第一张作为封面。出售和出租要填写不同的详情。</p>
         </div>
     </div>
     <div class="work">
@@ -27,11 +27,11 @@
                     <input type="number" name="jiage" placeholder="28000" th:value="${house != null ? house.jiage : ''}">
                 </div>
                 <div class="field">
-                    <label>图片</label>
-                    <input type="file" name="file" id="fileInput" accept="image/*">
+                    <label>图片（可多选）</label>
+                    <input type="file" name="files" id="fileInput" accept="image/*" multiple>
                 </div>
                 <div class="field">
-                    <label>或填写图片地址</label>
+                    <label>或再填一张图片地址</label>
                     <input type="text" name="tupian" placeholder="/images/tu.jpg">
                 </div>
                 <div class="field">
@@ -84,7 +84,8 @@
             <div class="preview-frame">
                 <img id="preview" src="/images/preview-house.jpg" alt="预览图">
             </div>
-            <p class="note">支持 JPG、PNG、GIF，文件会保存到服务器。</p>
+            <div class="preview-strip" id="preview-strip"></div>
+            <p class="note">支持 JPG、PNG、GIF。按住 Ctrl 或 Shift 可以一次选多张，第一张会显示在房源卡片上。</p>
         </aside>
     </div>
 </main>
@@ -93,11 +94,21 @@
   const preview = document.getElementById("preview");
   if (fileInput) {
     fileInput.addEventListener("change", () => {
-      const file = fileInput.files && fileInput.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => { preview.src = e.target.result; };
-      reader.readAsDataURL(file);
+      const files = Array.prototype.slice.call(fileInput.files || []);
+      const strip = document.getElementById("preview-strip");
+      if (strip) strip.innerHTML = "";
+      files.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (index === 0 && preview) preview.src = e.target.result;
+          if (!strip) return;
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.alt = "";
+          strip.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
     });
   }
 </script>

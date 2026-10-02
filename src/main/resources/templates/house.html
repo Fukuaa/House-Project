@@ -6,12 +6,22 @@
 <main class="container">
     <a class="back" th:href="${house.deleted != 0} ? @{/recycle} : @{/}">返回</a>
     <article class="detail">
+        <div class="detail-gallery">
         <div class="detail-photo">
-            <img th:src="${house.tupian}" th:alt="${house.dizhi}">
+            <img id="detail-main" th:src="${photos[0]}" th:alt="${house.dizhi}">
+            <button type="button" class="photo-nav prev" id="photo-prev" th:if="${#lists.size(photos) > 1}" aria-label="上一张">‹</button>
+            <button type="button" class="photo-nav next" id="photo-next" th:if="${#lists.size(photos) > 1}" aria-label="下一张">›</button>
             <span class="badge"
                   th:classappend="${house.zhuangtai == '出租中'} ? ' is-rent' : (${house.zhuangtai == '已售出'} ? ' is-sold' : ' is-sale')"
                   th:text="${house.zhuangtai}"></span>
             <span class="price-tag"><span th:text="${house.jiage}"></span><small>元/平米</small></span>
+        </div>
+        <div class="photo-thumbs" id="photo-thumbs" th:if="${#lists.size(photos) > 1}">
+            <button type="button" th:each="url, stat : ${photos}" th:attr="data-index=${stat.index}"
+                    th:classappend="${stat.index == 0} ? ' is-active' : ''">
+                <img th:src="${url}" alt="">
+            </button>
+        </div>
         </div>
         <div class="detail-copy">
             <p class="eyebrow" th:text="${house.zhuangtai == '出租中'} ? 'For rent' : (${house.zhuangtai == '已售出'} ? 'Sold' : 'For sale')">For sale</p>
@@ -56,5 +66,9 @@
         </div>
     </article>
 </main>
+<script th:inline="javascript">
+    window.housePhotos = /*[[${photos}]]*/ [];
+</script>
+<script src="/js/house-photos.js"></script>
 </body>
 </html>

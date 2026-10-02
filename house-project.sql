@@ -31,6 +31,14 @@ CREATE TABLE IF NOT EXISTS `fangzhi` (
   `deleted_at` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `fangzhi_image` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `hid` INT NOT NULL,
+  `url` VARCHAR(255) NOT NULL,
+  `sort_no` INT NOT NULL DEFAULT 0,
+  INDEX `idx_fangzhi_image_hid` (`hid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Seed users (admin + demo)
 INSERT INTO `user` (`username`, `password`, `dengji`) VALUES
   ('admin', '123456', 1),

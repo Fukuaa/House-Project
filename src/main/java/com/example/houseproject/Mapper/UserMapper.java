@@ -28,10 +28,13 @@ public interface UserMapper{
 
     fangzhi querybyid(@Param("hid") int hid);
 
-    void addfangzhi(@Param("dizhi") String dizhi, @Param("mianji") int mianji, @Param("jiage") int jiage,
-                    @Param("tupian") String tupian, @Param("zhuangtai") String zhuangtai,
-                    @Param("jiaju") String jiaju, @Param("shuidian") String shuidian, @Param("zuqi") String zuqi,
-                    @Param("zhuangxiu") String zhuangxiu, @Param("chanquan") String chanquan, @Param("wuye") String wuye);
+    void addfangzhi(fangzhi row);
+
+    void addImage(@Param("hid") int hid, @Param("url") String url, @Param("sortNo") int sortNo);
+
+    List<String> listImages(@Param("hid") int hid);
+
+    int deleteImages(@Param("hid") int hid);
 
     void gaimima(@Param("username") String username, @Param("password") String password);
 

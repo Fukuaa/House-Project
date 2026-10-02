@@ -7,6 +7,7 @@ import com.example.houseproject.Pojo.fangzhi;
 import com.example.houseproject.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -89,6 +90,11 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public int purge(int hid) {
+        fangzhi house = userMapper.querybyid(hid);
+        if (house == null || house.getDeleted() == 0) {
+            return 0;
+        }
+        userMapper.deleteImages(hid);
         return userMapper.purge(hid);
     }
 
@@ -98,10 +104,44 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void addfangzhi(String dizhi, int mianji, int jiage, String tupian, String zhuangtai,
                            String jiaju, String shuidian, String zuqi,
-                           String zhuangxiu, String chanquan, String wuye) {
-        userMapper.addfangzhi(dizhi, mianji, jiage, tupian, zhuangtai, jiaju, shuidian, zuqi, zhuangxiu, chanquan, wuye);
+                           String zhuangxiu, String chanquan, String wuye, List<String> photos) {
+        List<String> images = new ArrayList<String>();
+        if (photos != null) {
+            for (String photo : photos) {
+                if (photo != null && !photo.trim().isEmpty()) {
+                    images.add(photo.trim());
+                }
+            }
+        }
+        if (images.isEmpty() && tupian != null && !tupian.trim().isEmpty()) {
+            images.add(tupian.trim());
+        }
+        String cover = images.isEmpty() ? tupian : images.get(0);
+        fangzhi row = new fangzhi();
+        row.setDizhi(dizhi);
+        row.setMianji(mianji);
+        row.setJiage(jiage);
+        row.setTupian(cover);
+        row.setZhuangtai(zhuangtai);
+        row.setJiaju(jiaju);
+        row.setShuidian(shuidian);
+        row.setZuqi(zuqi);
+        row.setZhuangxiu(zhuangxiu);
+        row.setChanquan(chanquan);
+        row.setWuye(wuye);
+        userMapper.addfangzhi(row);
+        for (int i = 0; i < images.size(); i++) {
+            userMapper.addImage(row.getHid(), images.get(i), i);
+        }
+    }
+
+    @Override
+    public List<String> listImages(int hid) {
+        List<String> images = userMapper.listImages(hid);
+        return images == null ? new ArrayList<String>() : images;
     }
 
     @Override

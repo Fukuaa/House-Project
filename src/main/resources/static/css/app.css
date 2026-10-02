@@ -367,6 +367,67 @@ img { max-width: 100%; }
   display: block;
 }
 
+.photo-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 252, 247, 0.92);
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.photo-nav.prev { left: 14px; }
+.photo-nav.next { right: 14px; }
+
+.photo-thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+.photo-thumbs button {
+  flex: 0 0 76px;
+  width: 76px;
+  height: 56px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+}
+
+.photo-thumbs button.is-active { border-color: var(--pine); }
+
+.photo-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.preview-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.preview-strip img {
+  width: 76px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
 .detail-copy h1 { margin-top: 0; }
 
 .facts {
