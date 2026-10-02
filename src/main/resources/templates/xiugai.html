@@ -1,50 +1,32 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>修改房产</title>
-    <link rel="stylesheet" href="/css/app.css">
-</head>
-<body class="app">
-<div class="container">
-    <header class="topbar">
-        <div class="brand">
-            <div class="brand-mark">HP</div>
-            <div>
-                <h1>修改房产</h1>
-                <p>更新地址、面积与价格信息</p>
+<head th:replace="~{fragments/shell :: head('编辑房源')}"></head>
+<body>
+<header th:replace="~{fragments/shell :: bar('home')}"></header>
+<main class="container">
+    <section class="sheet">
+        <p class="eyebrow">Edit</p>
+        <h1>编辑房源</h1>
+        <p class="lede">可以改地址、面积和价格。图片保持不变。</p>
+        <form th:action="@{/xiugai}" method="post" class="form-grid">
+            <div class="field">
+                <label>地址</label>
+                <input type="text" name="dizhi">
             </div>
-        </div>
-    </header>
-
-    <main class="split">
-        <section class="card">
-            <h2 class="card-title">修改房产</h2>
-            <form th:action="@{/xiugai}" method="post" class="form-grid">
-                <div class="field">
-                    <label>地址</label>
-                    <input type="text" name="dizhi">
-                </div>
-                <div class="field">
-                    <label>面积</label>
-                    <input type="number" name="mianji">
-                </div>
-                <div class="field">
-                    <label>价格</label>
-                    <input type="number" name="jiage">
-                </div>
-                <div class="actions">
-                    <button class="btn" type="submit">完成</button>
-                    <a class="btn ghost" th:href="@{/toindex}">返回</a>
-                </div>
-            </form>
-        </section>
-        <section class="card">
-            <h2 class="card-title">提示</h2>
-            <p class="muted">建议填写真实有效的房源信息。</p>
-        </section>
-    </main>
-</div>
+            <div class="field">
+                <label>面积（平米）</label>
+                <input type="number" name="mianji">
+            </div>
+            <div class="field">
+                <label>价格（元/平米）</label>
+                <input type="number" name="jiage">
+            </div>
+            <div class="actions">
+                <button class="btn" type="submit">保存</button>
+                <a class="btn ghost" th:href="@{/toindex}">返回</a>
+            </div>
+        </form>
+    </section>
+</main>
 </body>
 </html>

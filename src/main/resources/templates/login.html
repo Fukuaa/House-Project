@@ -1,46 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录</title>
-    <link rel="stylesheet" href="/css/app.css">
-</head>
-<body class="app">
-<div class="container">
-    <header class="topbar">
-        <div class="brand">
-            <div class="brand-mark">HP</div>
-            <div>
-                <h1>房产管理系统</h1>
-                <p>登录后即可管理房源信息</p>
+<head th:replace="~{fragments/shell :: head('登录')}"></head>
+<body class="gate">
+<section class="gate-visual">
+    <img src="/uploads/house-03.jpg" alt="">
+    <div class="gate-caption">
+        <p class="eyebrow">House Project</p>
+        <h1>光、院子<br>和一扇门。</h1>
+    </div>
+</section>
+<section class="gate-panel">
+    <div class="gate-form">
+        <p class="eyebrow">Sign in</p>
+        <h2>登录</h2>
+        <form th:action="@{/login}" method="post" class="form-grid">
+            <div class="field">
+                <label>账号</label>
+                <input type="text" name="username" autocomplete="username">
             </div>
-        </div>
-    </header>
-
-    <main class="split">
-        <section class="card">
-            <h2 class="card-title">登录</h2>
-            <form th:action="@{/login}" method="post" class="form-grid">
-                <div class="field">
-                    <label>账号</label>
-                    <input type="text" name="username" autocomplete="username">
-                </div>
-                <div class="field">
-                    <label>密码</label>
-                    <input type="password" name="password" autocomplete="current-password">
-                </div>
-                <div class="actions">
-                    <button class="btn" type="submit">登录</button>
-                    <a class="btn ghost" th:href="@{/goZhuChe}">注册</a>
-                </div>
-            </form>
-        </section>
-        <section class="card">
-            <h2 class="card-title">快速提示</h2>
-            <p class="muted">登录失败时请检查账号密码是否正确。</p>
-        </section>
-    </main>
-</div>
+            <div class="field">
+                <label>密码</label>
+                <input type="password" name="password" autocomplete="current-password">
+            </div>
+            <button class="btn" type="submit">登录</button>
+        </form>
+        <p class="switch">还没有账号？ <a th:href="@{/goZhuChe}">注册</a></p>
+    </div>
+</section>
 </body>
 </html>

@@ -1,50 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>房产管理系统 - 登录</title>
-    <link rel="stylesheet" href="/css/app.css">
-</head>
-<body class="app">
-<div class="container">
-    <header class="topbar">
-        <div class="brand">
-            <div class="brand-mark">HP</div>
-            <div>
-                <h1>房产管理系统</h1>
-                <p>简单、清晰、可管理的房产展示与维护</p>
+<head th:replace="~{fragments/shell :: head('登录')}"></head>
+<body class="gate">
+<section class="gate-visual">
+    <img src="/uploads/house-09.jpg" alt="">
+    <div class="gate-caption">
+        <p class="eyebrow">House Project</p>
+        <h1>把每一套房<br>好好收着。</h1>
+    </div>
+</section>
+<section class="gate-panel">
+    <div class="gate-form">
+        <p class="eyebrow">Sign in</p>
+        <h2>欢迎回来</h2>
+        <p class="lede">登录后可以管理房源，删除的内容会先进入回收站。</p>
+        <form th:action="@{/login}" method="post" class="form-grid">
+            <div class="field">
+                <label>账号</label>
+                <input type="text" name="username" autocomplete="username" placeholder="请输入账号">
             </div>
-        </div>
-    </header>
-
-    <main class="split">
-        <section class="card">
-            <h2 class="card-title">欢迎回来</h2>
-            <p class="muted">请输入账号密码继续操作。</p>
-            <form th:action="@{/login}" method="post" class="form-grid">
-                <div class="field">
-                    <label>账号</label>
-                    <input type="text" name="username" autocomplete="username">
-                </div>
-                <div class="field">
-                    <label>密码</label>
-                    <input type="password" name="password" autocomplete="current-password">
-                </div>
-                <div class="error" th:text="${farmName}"></div>
-                <div class="actions">
-                    <button id="login_btn" class="btn" type="submit">登录</button>
-                    <a class="btn ghost" th:href="@{/goZhuChe}">注册</a>
-                </div>
-            </form>
-        </section>
-
-        <section class="card">
-            <h2 class="card-title">系统亮点</h2>
-            <p class="muted">快速录入房源、集中管理用户、统一展示信息。</p>
-            <div class="footer-note">建议使用 Chrome / Edge 以获得最佳体验。</div>
-        </section>
-    </main>
-</div>
+            <div class="field">
+                <label>密码</label>
+                <input type="password" name="password" autocomplete="current-password" placeholder="请输入密码">
+            </div>
+            <p class="error" th:text="${farmName}"></p>
+            <button id="login_btn" class="btn" type="submit">登录</button>
+        </form>
+        <p class="switch">还没有账号？ <a th:href="@{/goZhuChe}">注册</a></p>
+    </div>
+</section>
 </body>
 </html>

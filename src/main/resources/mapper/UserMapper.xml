@@ -12,7 +12,10 @@
         select * from user where username = #{username};
     </select>
     <select id="getall"  resultType="fangzhi">
-        select * from fangzhi;
+        select * from fangzhi where deleted = 0 order by hid desc;
+    </select>
+    <select id="getDeleted" resultType="fangzhi">
+        select * from fangzhi where deleted = 1 order by deleted_at desc, hid desc;
     </select>
     <select id="querybyid"  resultType="fangzhi">
         select * from fangzhi where hid = #{hid};
@@ -23,8 +26,14 @@
     <update id="xiugai">
         update fangzhi set dizhi =#{dizhi},mianji=#{mianji},jiage=#{jiage} where hid = #{hid};
     </update>
-    <delete id="shanchu">
-        delete from fangzhi where hid = #{hid};
+    <update id="shanchu">
+        update fangzhi set deleted = 1, deleted_at = now() where hid = #{hid} and deleted = 0;
+    </update>
+    <update id="restore">
+        update fangzhi set deleted = 0, deleted_at = null where hid = #{hid} and deleted = 1;
+    </update>
+    <delete id="purge">
+        delete from fangzhi where hid = #{hid} and deleted = 1;
     </delete>
     <delete id="shan">
         delete from user where username = #{username};

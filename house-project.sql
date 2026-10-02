@@ -20,7 +20,9 @@ CREATE TABLE IF NOT EXISTS `fangzhi` (
   `mianji` INT NOT NULL,
   `jiage` INT NOT NULL,
   `tupian` VARCHAR(255),
-  `zhuangtai` VARCHAR(50)
+  `zhuangtai` VARCHAR(50),
+  `deleted` TINYINT NOT NULL DEFAULT 0,
+  `deleted_at` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Seed users (admin + demo)

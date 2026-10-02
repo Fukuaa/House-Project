@@ -1,64 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>房产管理系统</title>
-    <link rel="stylesheet" href="/css/app.css">
-</head>
-<body class="app">
-<div class="container">
-    <header class="topbar">
-        <div class="brand">
-            <div class="brand-mark">HP</div>
-            <div>
-                <h1>房产管理系统</h1>
-                <p>房源清单与状态管理</p>
-            </div>
+<head th:replace="~{fragments/shell :: head('房源')}"></head>
+<body>
+<header th:replace="~{fragments/shell :: bar('home')}"></header>
+<main class="container">
+    <div class="intro">
+        <div>
+            <p class="eyebrow">Collection</p>
+            <h1>全部房源</h1>
+            <p class="lede">删除后会进入回收站，可以恢复，也可以彻底清除。</p>
         </div>
-        <div class="user-chip" th:text="${msg1}"></div>
-    </header>
+        <a class="btn" th:href="@{/toaddfanzhi}">新增房源</a>
+    </div>
 
-    <nav class="nav-bar">
-        <a class="nav-link" href="#">主页</a>
-        <a class="nav-link" th:href="@{/toaddfanzhi}">添加房产信息</a>
-        <a class="nav-link" th:href="@{/togm}">修改用户信息</a>
-        <a class="nav-link" th:href="@{/gaimima1}">管理用户</a>
-        <a class="nav-link" th:href="@{/zhuxiao}">注销</a>
-    </nav>
+    <div class="empty" th:if="${#lists.isEmpty(msg)}">
+        <h2>还没有房源</h2>
+        <p>添加一套，或者去回收站把删掉的房子找回来。</p>
+        <a class="btn" th:href="@{/toaddfanzhi}">新增房源</a>
+    </div>
 
-    <main class="card-grid">
-        <div class="house-card" th:each="lists : ${msg}">
-            <div class="house-media">
-                <img th:src="${lists.tupian}" alt="房源图片">
+    <section class="gallery" th:unless="${#lists.isEmpty(msg)}">
+        <article class="listing" th:each="lists : ${msg}">
+            <div class="listing-photo">
+                <img th:src="${lists.tupian}" alt="">
+                <span class="badge"
+                      th:classappend="${lists.zhuangtai == '已售出'} ? ' is-sold' : (${lists.zhuangtai == '出租中'} ? ' is-rent' : ' is-sale')"
+                      th:text="${lists.zhuangtai}"></span>
+                <span class="price-tag"><span th:text="${lists.jiage}"></span><small>元/平米</small></span>
             </div>
-            <div class="house-body">
-                <div class="house-row">
-                    <span class="label">地址</span>
-                    <span class="value" th:text="${lists.dizhi}"></span>
-                </div>
-                <div class="house-row">
-                    <span class="label">价格</span>
-                    <span class="value"><span th:text="${lists.jiage}"></span>/平米</span>
-                </div>
-                <div class="house-row">
-                    <span class="label">面积</span>
-                    <span class="value"><span th:text="${lists.mianji}"></span>平米</span>
-                </div>
-                <div class="house-row">
-                    <span class="label">状态</span>
-                    <span class="status" th:text="${lists.zhuangtai}"></span>
-                </div>
-                <div class="house-actions">
-                    <form th:action="@{/shanchu}" method="post" style="display:inline;">
-                        <input type="hidden" name="hid" th:value="${lists.hid}">
-                        <button type="submit" class="btn danger">删除</button>
-                    </form>
-                    <a th:href="@{/goxiugai(hid=${lists.hid})}" class="btn ghost" role="button">修改</a>
-                </div>
+            <h3 th:text="${lists.dizhi}"></h3>
+            <p class="meta"><span th:text="${lists.mianji}"></span> 平米</p>
+            <div class="listing-actions">
+                <a th:href="@{/goxiugai(hid=${lists.hid})}">编辑</a>
+                <form th:action="@{/shanchu}" method="post">
+                    <input type="hidden" name="hid" th:value="${lists.hid}">
+                    <button type="submit">放入回收站</button>
+                </form>
             </div>
-        </div>
-    </main>
-</div>
+        </article>
+    </section>
+</main>
 </body>
 </html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">房产</title>
+    <link rel="stylesheet" href="/css/app.css?v=4">
+</head>
+<body>
+<header th:fragment="bar(active)" class="top">
+    <div class="container top-row">
+        <a class="wordmark" th:href="@{/toindex}"><span class="mark">住</span><span>房产</span></a>
+        <nav class="nav">
+            <a th:href="@{/toindex}" th:class="${active == 'home'} ? 'is-active' : ''">房源</a>
+            <a th:href="@{/toaddfanzhi}" th:class="${active == 'add'} ? 'is-active' : ''">新增</a>
+            <a th:href="@{/recycle}" th:class="${active == 'bin'} ? 'is-active' : ''">回收站</a>
+            <a th:href="@{/togm}" th:class="${active == 'account'} ? 'is-active' : ''">账号</a>
+            <a th:href="@{/gaimima1}" th:if="${session.dengji == 1}" th:class="${active == 'users'} ? 'is-active' : ''">用户</a>
+        </nav>
+        <div class="top-side">
+            <span class="who" th:text="${session.username}"></span>
+            <a class="quiet" th:href="@{/zhuxiao}">退出</a>
+        </div>
+    </div>
+</header>
+</body>
+</html>

@@ -1,56 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>修改密码</title>
-    <link rel="stylesheet" href="/css/app.css">
-</head>
-<body class="app">
-<div class="container">
-    <header class="topbar">
-        <div class="brand">
-            <div class="brand-mark">HP</div>
-            <div>
-                <h1>房产管理系统</h1>
-                <p>修改当前账号信息</p>
+<head th:replace="~{fragments/shell :: head('账号')}"></head>
+<body>
+<header th:replace="~{fragments/shell :: bar('account')}"></header>
+<main class="container">
+    <section class="sheet">
+        <p class="eyebrow">Account</p>
+        <h1>修改密码</h1>
+        <p class="lede">两次输入需要一致。修改成功后需要重新登录。</p>
+        <form th:action="@{/gaimima}" method="post" class="form-grid">
+            <div class="field">
+                <label>新密码</label>
+                <input type="password" name="p1" autocomplete="new-password">
             </div>
-        </div>
-        <div class="user-chip" th:text="${msg1}"></div>
-    </header>
-
-    <nav class="nav-bar">
-        <a class="nav-link" th:href="@{/toindex}">主页</a>
-        <a class="nav-link" th:href="@{/toaddfanzhi}">添加房产信息</a>
-        <a class="nav-link" href="#">修改用户信息</a>
-        <a class="nav-link" th:href="@{/gaimima1}">管理用户</a>
-        <a class="nav-link" th:href="@{/zhuxiao}">注销</a>
-    </nav>
-
-    <main class="split">
-        <section class="card">
-            <h2 class="card-title">修改密码</h2>
-            <form th:action="@{/gaimima}" method="post" class="form-grid">
-                <div class="field">
-                    <label>新密码</label>
-                    <input type="password" name="p1" autocomplete="new-password">
-                </div>
-                <div class="field">
-                    <label>确认密码</label>
-                    <input type="password" name="p2" autocomplete="new-password">
-                </div>
-                <div class="error" th:text="${error}"></div>
-                <div class="actions">
-                    <button class="btn" type="submit">完成</button>
-                    <a class="btn ghost" th:href="@{/toindex}">返回</a>
-                </div>
-            </form>
-        </section>
-        <section class="card">
-            <h2 class="card-title">安全建议</h2>
-            <p class="muted">请使用长度不少于 6 位的密码，包含数字与字母。</p>
-        </section>
-    </main>
-</div>
+            <div class="field">
+                <label>确认密码</label>
+                <input type="password" name="p2" autocomplete="new-password">
+            </div>
+            <p class="error" th:text="${error}"></p>
+            <div class="actions">
+                <button class="btn" type="submit">保存</button>
+                <a class="btn ghost" th:href="@{/toindex}">返回</a>
+            </div>
+        </form>
+    </section>
+</main>
 </body>
 </html>

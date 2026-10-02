@@ -121,8 +121,33 @@ public class LoginController {
         Object u = request.getSession().getAttribute("username");
         model.addAttribute("msg", userService.getall());
         model.addAttribute("msg1", greeting((String) u));
-        log.info("House deleted: hid={}, username={}", hid, u);
+        log.info("House moved to recycle: hid={}, username={}", hid, u);
         return "index1";
+    }
+
+    @GetMapping("/recycle")
+    public String recycle(HttpServletRequest request, Model model) {
+        Object u = request.getSession().getAttribute("username");
+        if (u == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("msg", userService.getDeleted());
+        model.addAttribute("msg1", greeting((String) u));
+        return "recycle";
+    }
+
+    @PostMapping("/restore")
+    public String restore(HttpServletRequest request, int hid) {
+        userService.restore(hid);
+        log.info("House restored: hid={}, username={}", hid, request.getSession().getAttribute("username"));
+        return "redirect:/recycle";
+    }
+
+    @PostMapping("/purge")
+    public String purge(HttpServletRequest request, int hid) {
+        userService.purge(hid);
+        log.info("House purged: hid={}, username={}", hid, request.getSession().getAttribute("username"));
+        return "redirect:/recycle";
     }
 
     @PostMapping("/addfangzhi")

@@ -1,34 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理用户</title>
-    <link rel="stylesheet" href="/css/app.css">
-</head>
-<body class="app">
-<div class="container">
-    <header class="topbar">
-        <div class="brand">
-            <div class="brand-mark">HP</div>
-            <div>
-                <h1>房产管理系统</h1>
-                <p>管理员中心</p>
-            </div>
+<head th:replace="~{fragments/shell :: head('用户')}"></head>
+<body>
+<header th:replace="~{fragments/shell :: bar('users')}"></header>
+<main class="container">
+    <div class="intro">
+        <div>
+            <p class="eyebrow">People</p>
+            <h1>用户</h1>
+            <p class="lede">等级 1 是管理员，等级 0 是普通用户。</p>
         </div>
-        <div class="user-chip" th:text="${msg1}"></div>
-    </header>
-
-    <nav class="nav-bar">
-        <a class="nav-link" th:href="@{/toindex}">主页</a>
-        <a class="nav-link" th:href="@{/toaddfanzhi}">添加房产信息</a>
-        <a class="nav-link" th:href="@{/togm}">修改用户信息</a>
-        <a class="nav-link" href="#">管理用户</a>
-        <a class="nav-link" th:href="@{/zhuxiao}">注销</a>
-    </nav>
-
-    <main class="card">
-        <h2 class="card-title">用户列表</h2>
+    </div>
+    <section class="sheet" style="width:100%; margin-top:0;">
         <table class="table">
             <thead>
             <tr>
@@ -51,7 +34,7 @@
             </tr>
             </tbody>
         </table>
-    </main>
-</div>
+    </section>
+</main>
 </body>
 </html>

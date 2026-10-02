@@ -33,6 +33,11 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
+    public List getDeleted() {
+        return userMapper.getDeleted();
+    }
+
+    @Override
     public User querybyname(String username, String password) {
         return login(username, password);
     }
@@ -73,6 +78,16 @@ public class UserServiceimpl implements UserService {
     @Override
     public int shanchu(int hid) {
         return userMapper.shanchu(hid);
+    }
+
+    @Override
+    public int restore(int hid) {
+        return userMapper.restore(hid);
+    }
+
+    @Override
+    public int purge(int hid) {
+        return userMapper.purge(hid);
     }
 
     @Override
