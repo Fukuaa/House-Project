@@ -1,6 +1,7 @@
 package com.example.houseproject.Controller;
 
 import com.example.houseproject.Pojo.User;
+import com.example.houseproject.Pojo.fangzhi;
 import com.example.houseproject.Service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,23 +96,36 @@ public class LoginController {
     }
 
     @GetMapping("/goxiugai")
-    public String goxiugai(HttpSession session, int hid) {
+    public String goxiugai(HttpSession session, Model model, int hid) {
+        fangzhi house = userService.querybyid(hid);
+        if (house == null || house.getDeleted() != 0) {
+            log.warn("Edit house denied: hid={}", hid);
+            return "redirect:/toindex";
+        }
         session.setAttribute("f", hid);
+        model.addAttribute("house", house);
         return "xiugai";
     }
 
     @PostMapping("/xiugai")
-    public String xiugai(Model model, HttpServletRequest request, String dizhi, int mianji, int jiage) {
+    public String xiugai(Model model, HttpServletRequest request, String dizhi, int mianji, int jiage, String zhuangtai) {
         Object hid = request.getSession().getAttribute("f");
         if (hid == null) {
             log.warn("Update house failed: missing hid in session");
             return "redirect:/toindex";
         }
-        userService.xiugai(dizhi, mianji, jiage, (Integer) hid);
+        if (!isHouseStatus(zhuangtai)) {
+            fangzhi house = userService.querybyid((Integer) hid);
+            model.addAttribute("house", house);
+            model.addAttribute("error", "请选择房源状态");
+            log.warn("Update house failed: invalid status hid={}", hid);
+            return "xiugai";
+        }
+        userService.xiugai(dizhi, mianji, jiage, zhuangtai, (Integer) hid);
         Object u = request.getSession().getAttribute("username");
         model.addAttribute("msg", userService.getall());
         model.addAttribute("msg1", greeting((String) u));
-        log.info("House updated: hid={}, username={}", hid, u);
+        log.info("House updated: hid={}, username={}, zhuangtai={}", hid, u, zhuangtai);
         return "index1";
     }
 
@@ -293,6 +307,10 @@ public class LoginController {
 
     private boolean isBlank(String value) {
         return value == null || value.trim().isEmpty();
+    }
+
+    private boolean isHouseStatus(String value) {
+        return "售卖中".equals(value) || "出租中".equals(value) || "已售出".equals(value);
     }
 
     private String greeting(String username) {

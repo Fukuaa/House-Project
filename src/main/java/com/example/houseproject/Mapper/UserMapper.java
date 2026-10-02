@@ -17,7 +17,7 @@ public interface UserMapper{
     List getall();
     List getDeleted();
     int addUser(@Param("username") String username, @Param("password") String password);
-    int xiugai(@Param("dizhi") String dizhi, @Param("mianji") int mianji, @Param("jiage") int jiage, @Param("hid") int hid);
+    int xiugai(@Param("dizhi") String dizhi, @Param("mianji") int mianji, @Param("jiage") int jiage, @Param("zhuangtai") String zhuangtai, @Param("hid") int hid);
     int shanchu(@Param("hid") int hid);
     int restore(@Param("hid") int hid);
     int purge(@Param("hid") int hid);

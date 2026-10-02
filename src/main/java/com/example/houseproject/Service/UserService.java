@@ -13,7 +13,7 @@ public interface UserService {
     User querybyname(String username, String password);
     User login(String username, String password);
     int addUser(String username,String password);
-    int xiugai(String dizhi,int mianji,int jiage,int hid);
+    int xiugai(String dizhi, int mianji, int jiage, String zhuangtai, int hid);
     int shanchu(int hid);
     int restore(int hid);
     int purge(int hid);

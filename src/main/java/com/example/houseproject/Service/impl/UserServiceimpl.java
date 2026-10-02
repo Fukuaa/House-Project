@@ -71,8 +71,8 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public int xiugai(String dizhi,int mianji,int jiage,int hid) {
-        return userMapper.xiugai(dizhi,mianji,jiage,hid);
+    public int xiugai(String dizhi, int mianji, int jiage, String zhuangtai, int hid) {
+        return userMapper.xiugai(dizhi, mianji, jiage, zhuangtai, hid);
     }
 
     @Override

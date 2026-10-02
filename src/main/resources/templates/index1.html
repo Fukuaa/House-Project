@@ -8,14 +8,14 @@
         <div>
             <p class="eyebrow">Collection</p>
             <h1>全部房源</h1>
-            <p class="lede">删除后会进入回收站，可以恢复，也可以彻底清除。</p>
+            <p class="lede">下架后会进入回收站，可以恢复，也可以彻底清除。</p>
         </div>
         <a class="btn" th:href="@{/toaddfanzhi}">新增房源</a>
     </div>
 
     <div class="empty" th:if="${#lists.isEmpty(msg)}">
         <h2>还没有房源</h2>
-        <p>添加一套，或者去回收站把删掉的房子找回来。</p>
+        <p>添加一套，或者去回收站把下架的房子找回来。</p>
         <a class="btn" th:href="@{/toaddfanzhi}">新增房源</a>
     </div>
 
@@ -34,7 +34,7 @@
                 <a th:href="@{/goxiugai(hid=${lists.hid})}">编辑</a>
                 <form th:action="@{/shanchu}" method="post">
                     <input type="hidden" name="hid" th:value="${lists.hid}">
-                    <button type="submit">放入回收站</button>
+                    <button type="submit">下架</button>
                 </form>
             </div>
         </article>

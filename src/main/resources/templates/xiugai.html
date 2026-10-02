@@ -7,20 +7,29 @@
     <section class="sheet">
         <p class="eyebrow">Edit</p>
         <h1>编辑房源</h1>
-        <p class="lede">可以改地址、面积和价格。图片保持不变。</p>
+        <p class="lede">可以改地址、面积、价格和状态。图片保持不变。</p>
         <form th:action="@{/xiugai}" method="post" class="form-grid">
             <div class="field">
                 <label>地址</label>
-                <input type="text" name="dizhi">
+                <input type="text" name="dizhi" th:value="${house.dizhi}">
             </div>
             <div class="field">
                 <label>面积（平米）</label>
-                <input type="number" name="mianji">
+                <input type="number" name="mianji" th:value="${house.mianji}">
             </div>
             <div class="field">
                 <label>价格（元/平米）</label>
-                <input type="number" name="jiage">
+                <input type="number" name="jiage" th:value="${house.jiage}">
             </div>
+            <div class="field">
+                <label>状态</label>
+                <select name="zhuangtai">
+                    <option value="售卖中" th:selected="${house.zhuangtai == '售卖中'}">售卖中</option>
+                    <option value="出租中" th:selected="${house.zhuangtai == '出租中'}">出租中</option>
+                    <option value="已售出" th:selected="${house.zhuangtai == '已售出'}">已售出</option>
+                </select>
+            </div>
+            <p class="error" th:text="${error}"></p>
             <div class="actions">
                 <button class="btn" type="submit">保存</button>
                 <a class="btn ghost" th:href="@{/toindex}">返回</a>

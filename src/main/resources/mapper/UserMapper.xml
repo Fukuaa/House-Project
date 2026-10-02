@@ -24,7 +24,7 @@
             insert into user(username,password) values(#{username},#{password})
     </insert>
     <update id="xiugai">
-        update fangzhi set dizhi =#{dizhi},mianji=#{mianji},jiage=#{jiage} where hid = #{hid};
+        update fangzhi set dizhi =#{dizhi},mianji=#{mianji},jiage=#{jiage},zhuangtai=#{zhuangtai} where hid = #{hid} and deleted = 0;
     </update>
     <update id="shanchu">
         update fangzhi set deleted = 1, deleted_at = now() where hid = #{hid} and deleted = 0;
