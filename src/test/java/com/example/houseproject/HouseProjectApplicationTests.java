@@ -19,7 +19,7 @@ class HouseProjectApplicationTests {
     UserService userService;
     @Test
     void contextLoads() {
-        userService.addfangzhi("1",1,1,"1","1");
+        userService.addfangzhi("1", 1, 1, "1", "1", null, null, null, null, null, null);
     }
 
 }

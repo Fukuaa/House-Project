@@ -21,6 +21,12 @@ CREATE TABLE IF NOT EXISTS `fangzhi` (
   `jiage` INT NOT NULL,
   `tupian` VARCHAR(255),
   `zhuangtai` VARCHAR(50),
+  `jiaju` VARCHAR(255) NULL,
+  `shuidian` VARCHAR(255) NULL,
+  `zuqi` VARCHAR(255) NULL,
+  `zhuangxiu` VARCHAR(255) NULL,
+  `chanquan` VARCHAR(255) NULL,
+  `wuye` VARCHAR(255) NULL,
   `deleted` TINYINT NOT NULL DEFAULT 0,
   `deleted_at` DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -34,11 +40,11 @@ ON DUPLICATE KEY UPDATE
   `dengji` = VALUES(`dengji`);
 
 -- Seed houses
-INSERT INTO `fangzhi` (`dizhi`, `mianji`, `jiage`, `tupian`, `zhuangtai`) VALUES
-  ('No.1 River Rd', 88, 12000, '/images/tu.jpg', '售卖中'),
-  ('No.12 Lake Ave', 120, 15500, '/images/tu.jpg', '售卖中'),
-  ('No.8 Hill St', 75, 9800, '/images/tu.jpg', '出租中'),
-  ('No.66 Garden Blvd', 142, 21000, '/images/tu.jpg', '售卖中'),
-  ('No.23 Pine Ln', 60, 7200, '/images/tu.jpg', '出租中'),
-  ('No.9 Downtown Rd', 95, 13500, '/images/tu.jpg', '已售出');
+INSERT INTO `fangzhi` (`dizhi`, `mianji`, `jiage`, `tupian`, `zhuangtai`, `deleted`) VALUES
+  ('No.1 River Rd', 88, 12000, '/images/tu.jpg', '售卖中', 0),
+  ('No.12 Lake Ave', 120, 15500, '/images/tu.jpg', '售卖中', 0),
+  ('No.8 Hill St', 75, 9800, '/images/tu.jpg', '出租中', 0),
+  ('No.66 Garden Blvd', 142, 21000, '/images/tu.jpg', '售卖中', 0),
+  ('No.23 Pine Ln', 60, 7200, '/images/tu.jpg', '出租中', 0),
+  ('No.9 Downtown Rd', 95, 13500, '/images/tu.jpg', '已售出', 1);
 

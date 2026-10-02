@@ -14,7 +14,7 @@
         <p class="eyebrow">Sign in</p>
         <h2>欢迎回来</h2>
         <p class="lede">登录后可以管理房源，下架的内容会先进入回收站。</p>
-        <form th:action="@{/login}" method="post" class="form-grid">
+        <form id="login-form" th:action="@{/login}" method="post" class="form-grid">
             <div class="field">
                 <label>账号</label>
                 <input type="text" name="username" autocomplete="username" placeholder="请输入账号">
@@ -23,11 +23,16 @@
                 <label>密码</label>
                 <input type="password" name="password" autocomplete="current-password" placeholder="请输入密码">
             </div>
+            <label class="remember">
+                <input type="checkbox" name="remember">
+                <span>记住密码</span>
+            </label>
             <p class="error" th:text="${farmName}"></p>
             <button id="login_btn" class="btn" type="submit">登录</button>
         </form>
         <p class="switch">还没有账号？ <a th:href="@{/goZhuChe}">注册</a> · <a th:href="@{/}">返回首页</a></p>
     </div>
 </section>
+<script src="/js/remember.js"></script>
 </body>
 </html>

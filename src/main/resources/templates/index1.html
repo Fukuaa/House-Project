@@ -24,15 +24,18 @@
 
     <section class="gallery" th:unless="${#lists.isEmpty(msg)}">
         <article class="listing" th:each="lists : ${msg}">
-            <div class="listing-photo">
-                <img th:src="${lists.tupian}" alt="">
-                <span class="badge"
-                      th:classappend="${lists.zhuangtai == '已售出'} ? ' is-sold' : (${lists.zhuangtai == '出租中'} ? ' is-rent' : ' is-sale')"
-                      th:text="${lists.zhuangtai}"></span>
-                <span class="price-tag"><span th:text="${lists.jiage}"></span><small>元/平米</small></span>
-            </div>
-            <h3 th:text="${lists.dizhi}"></h3>
-            <p class="meta"><span th:text="${lists.mianji}"></span> 平米</p>
+            <a class="listing-link" th:href="@{/house(hid=${lists.hid})}">
+                <div class="listing-photo">
+                    <img th:src="${lists.tupian}" alt="">
+                    <span class="badge"
+                          th:classappend="${lists.zhuangtai == '出租中'} ? ' is-rent' : ' is-sale'"
+                          th:text="${lists.zhuangtai}"></span>
+                    <span class="price-tag"><span th:text="${lists.jiage}"></span><small>元/平米</small></span>
+                </div>
+                <h3 th:text="${lists.dizhi}"></h3>
+                <p class="meta"><span th:text="${lists.mianji}"></span> 平米</p>
+                <p class="more">查看详情</p>
+            </a>
             <div class="listing-actions" th:if="${session.username != null}">
                 <a th:href="@{/goxiugai(hid=${lists.hid})}">编辑</a>
                 <form th:action="@{/shanchu}" method="post">

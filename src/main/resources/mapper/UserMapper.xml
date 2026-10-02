@@ -12,7 +12,7 @@
         select * from user where username = #{username};
     </select>
     <select id="getall"  resultType="fangzhi">
-        select * from fangzhi where deleted = 0 order by hid desc;
+        select * from fangzhi where deleted = 0 and (zhuangtai is null or zhuangtai &lt;&gt; '已售出') order by hid desc;
     </select>
     <select id="getDeleted" resultType="fangzhi">
         select * from fangzhi where deleted = 1 order by deleted_at desc, hid desc;
@@ -24,7 +24,10 @@
             insert into user(username,password) values(#{username},#{password})
     </insert>
     <update id="xiugai">
-        update fangzhi set dizhi =#{dizhi},mianji=#{mianji},jiage=#{jiage},zhuangtai=#{zhuangtai} where hid = #{hid} and deleted = 0;
+        update fangzhi set dizhi =#{dizhi},mianji=#{mianji},jiage=#{jiage},zhuangtai=#{zhuangtai},
+            jiaju=#{jiaju,jdbcType=VARCHAR},shuidian=#{shuidian,jdbcType=VARCHAR},zuqi=#{zuqi,jdbcType=VARCHAR},
+            zhuangxiu=#{zhuangxiu,jdbcType=VARCHAR},chanquan=#{chanquan,jdbcType=VARCHAR},wuye=#{wuye,jdbcType=VARCHAR}
+        where hid = #{hid} and deleted = 0;
     </update>
     <update id="shanchu">
         update fangzhi set deleted = 1, deleted_at = now() where hid = #{hid} and deleted = 0;
@@ -39,7 +42,10 @@
         delete from user where username = #{username};
     </delete>
     <insert id="addfangzhi">
-        insert into fangzhi(dizhi,mianji,jiage,tupian,zhuangtai) values(#{dizhi},#{mianji},#{jiage},#{tupian},#{zhuangtai});
+        insert into fangzhi(dizhi,mianji,jiage,tupian,zhuangtai,jiaju,shuidian,zuqi,zhuangxiu,chanquan,wuye)
+        values(#{dizhi},#{mianji},#{jiage},#{tupian},#{zhuangtai},
+            #{jiaju,jdbcType=VARCHAR},#{shuidian,jdbcType=VARCHAR},#{zuqi,jdbcType=VARCHAR},
+            #{zhuangxiu,jdbcType=VARCHAR},#{chanquan,jdbcType=VARCHAR},#{wuye,jdbcType=VARCHAR});
     </insert>
     <update id="gaimima">
         update user set password =#{password} where username = #{username};

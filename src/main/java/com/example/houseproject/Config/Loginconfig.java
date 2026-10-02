@@ -24,6 +24,7 @@ public class Loginconfig implements WebMvcConfigurer {
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/")
+                .excludePathPatterns("/house")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/tologin")
                 .excludePathPatterns("/goZhuChe")

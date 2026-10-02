@@ -71,8 +71,10 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public int xiugai(String dizhi, int mianji, int jiage, String zhuangtai, int hid) {
-        return userMapper.xiugai(dizhi, mianji, jiage, zhuangtai, hid);
+    public int xiugai(String dizhi, int mianji, int jiage, String zhuangtai,
+                      String jiaju, String shuidian, String zuqi,
+                      String zhuangxiu, String chanquan, String wuye, int hid) {
+        return userMapper.xiugai(dizhi, mianji, jiage, zhuangtai, jiaju, shuidian, zuqi, zhuangxiu, chanquan, wuye, hid);
     }
 
     @Override
@@ -82,6 +84,10 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public int restore(int hid) {
+        fangzhi house = userMapper.querybyid(hid);
+        if (house == null || "已售出".equals(house.getZhuangtai())) {
+            return 0;
+        }
         return userMapper.restore(hid);
     }
 
@@ -96,8 +102,10 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public void addfangzhi(String dizhi, int mianji, int jiage, String tupian, String zhuangtai) {
-        userMapper.addfangzhi(dizhi,mianji,jiage,tupian,zhuangtai);
+    public void addfangzhi(String dizhi, int mianji, int jiage, String tupian, String zhuangtai,
+                           String jiaju, String shuidian, String zuqi,
+                           String zhuangxiu, String chanquan, String wuye) {
+        userMapper.addfangzhi(dizhi, mianji, jiage, tupian, zhuangtai, jiaju, shuidian, zuqi, zhuangxiu, chanquan, wuye);
     }
 
     @Override

@@ -13,14 +13,18 @@ public interface UserService {
     User querybyname(String username, String password);
     User login(String username, String password);
     int addUser(String username,String password);
-    int xiugai(String dizhi, int mianji, int jiage, String zhuangtai, int hid);
+    int xiugai(String dizhi, int mianji, int jiage, String zhuangtai,
+               String jiaju, String shuidian, String zuqi,
+               String zhuangxiu, String chanquan, String wuye, int hid);
     int shanchu(int hid);
     int restore(int hid);
     int purge(int hid);
 
     fangzhi querybyid(int hid);
 
-    void addfangzhi(String dizhi, int mianji, int jiage, String tupian, String zhuangtai);
+    void addfangzhi(String dizhi, int mianji, int jiage, String tupian, String zhuangtai,
+                    String jiaju, String shuidian, String zuqi,
+                    String zhuangxiu, String chanquan, String wuye);
 
     void gaimima(String u,String p);
 

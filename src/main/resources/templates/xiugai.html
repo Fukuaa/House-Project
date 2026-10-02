@@ -7,7 +7,7 @@
     <section class="sheet">
         <p class="eyebrow">Edit</p>
         <h1>编辑房源</h1>
-        <p class="lede">可以改地址、面积、价格和状态。图片保持不变。</p>
+        <p class="lede">可以改地址、面积、价格和状态。出售和出租的详情不一样，图片保持不变。</p>
         <form th:action="@{/xiugai}" method="post" class="form-grid">
             <div class="field">
                 <label>地址</label>
@@ -23,11 +23,40 @@
             </div>
             <div class="field">
                 <label>状态</label>
-                <select name="zhuangtai">
-                    <option value="售卖中" th:selected="${house.zhuangtai == '售卖中'}">售卖中</option>
-                    <option value="出租中" th:selected="${house.zhuangtai == '出租中'}">出租中</option>
-                    <option value="已售出" th:selected="${house.zhuangtai == '已售出'}">已售出</option>
+                <select name="zhuangtai" id="status">
+                    <option th:each="st : ${statuses}" th:value="${st.label}" th:text="${st.label}"
+                            th:selected="${house.zhuangtai == st.label}"></option>
                 </select>
+            </div>
+            <div id="sale-fields" class="detail-fields" th:classappend="${house.zhuangtai == '售卖中'} ? '' : ' is-hidden'">
+                <p class="group-label">出售详情</p>
+                <div class="field">
+                    <label>装修</label>
+                    <input type="text" name="zhuangxiu" th:value="${house.zhuangxiu}" placeholder="例如 精装">
+                </div>
+                <div class="field">
+                    <label>产权年限</label>
+                    <input type="text" name="chanquan" th:value="${house.chanquan}" placeholder="例如 70 年住宅">
+                </div>
+                <div class="field">
+                    <label>物业费</label>
+                    <input type="text" name="wuye" th:value="${house.wuye}" placeholder="例如 3.6 元/平米/月">
+                </div>
+            </div>
+            <div id="rent-fields" class="detail-fields" th:classappend="${house.zhuangtai == '出租中'} ? '' : ' is-hidden'">
+                <p class="group-label">出租详情</p>
+                <div class="field">
+                    <label>家具</label>
+                    <input type="text" name="jiaju" th:value="${house.jiaju}" placeholder="例如 全套家具家电">
+                </div>
+                <div class="field">
+                    <label>水电费</label>
+                    <input type="text" name="shuidian" th:value="${house.shuidian}" placeholder="例如 租客自理，月均约 200 元">
+                </div>
+                <div class="field">
+                    <label>最低租期</label>
+                    <input type="text" name="zuqi" th:value="${house.zuqi}" placeholder="例如 12 个月">
+                </div>
             </div>
             <p class="error" th:text="${error}"></p>
             <div class="actions">
@@ -37,5 +66,6 @@
         </form>
     </section>
 </main>
+<script src="/js/house-form.js"></script>
 </body>
 </html>

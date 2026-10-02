@@ -17,7 +17,11 @@ public interface UserMapper{
     List getall();
     List getDeleted();
     int addUser(@Param("username") String username, @Param("password") String password);
-    int xiugai(@Param("dizhi") String dizhi, @Param("mianji") int mianji, @Param("jiage") int jiage, @Param("zhuangtai") String zhuangtai, @Param("hid") int hid);
+    int xiugai(@Param("dizhi") String dizhi, @Param("mianji") int mianji, @Param("jiage") int jiage,
+               @Param("zhuangtai") String zhuangtai,
+               @Param("jiaju") String jiaju, @Param("shuidian") String shuidian, @Param("zuqi") String zuqi,
+               @Param("zhuangxiu") String zhuangxiu, @Param("chanquan") String chanquan, @Param("wuye") String wuye,
+               @Param("hid") int hid);
     int shanchu(@Param("hid") int hid);
     int restore(@Param("hid") int hid);
     int purge(@Param("hid") int hid);
@@ -25,7 +29,9 @@ public interface UserMapper{
     fangzhi querybyid(@Param("hid") int hid);
 
     void addfangzhi(@Param("dizhi") String dizhi, @Param("mianji") int mianji, @Param("jiage") int jiage,
-                    @Param("tupian") String tupian, @Param("zhuangtai") String zhuangtai);
+                    @Param("tupian") String tupian, @Param("zhuangtai") String zhuangtai,
+                    @Param("jiaju") String jiaju, @Param("shuidian") String shuidian, @Param("zuqi") String zuqi,
+                    @Param("zhuangxiu") String zhuangxiu, @Param("chanquan") String chanquan, @Param("wuye") String wuye);
 
     void gaimima(@Param("username") String username, @Param("password") String password);
 

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/shell :: head('房源详情')}"></head>
+<body>
+<header th:replace="~{fragments/shell :: bar('home')}"></header>
+<main class="container">
+    <a class="back" th:href="${house.deleted != 0} ? @{/recycle} : @{/}">返回</a>
+    <article class="detail">
+        <div class="detail-photo">
+            <img th:src="${house.tupian}" th:alt="${house.dizhi}">
+            <span class="badge"
+                  th:classappend="${house.zhuangtai == '出租中'} ? ' is-rent' : (${house.zhuangtai == '已售出'} ? ' is-sold' : ' is-sale')"
+                  th:text="${house.zhuangtai}"></span>
+            <span class="price-tag"><span th:text="${house.jiage}"></span><small>元/平米</small></span>
+        </div>
+        <div class="detail-copy">
+            <p class="eyebrow" th:text="${house.zhuangtai == '出租中'} ? 'For rent' : (${house.zhuangtai == '已售出'} ? 'Sold' : 'For sale')">For sale</p>
+            <h1 th:text="${house.dizhi}">地址</h1>
+            <p class="meta"><span th:text="${house.mianji}"></span> 平米 · <span th:text="${house.jiage}"></span> 元/平米</p>
+            <p class="lede" th:if="${house.deleted != 0}">这套房在回收站，不会出现在首页。</p>
+            <dl class="facts" th:if="${house.zhuangtai == '出租中'}">
+                <div>
+                    <dt>家具</dt>
+                    <dd th:text="${#strings.isEmpty(house.jiaju) ? '未填写' : house.jiaju}">家具</dd>
+                </div>
+                <div>
+                    <dt>水电费</dt>
+                    <dd th:text="${#strings.isEmpty(house.shuidian) ? '未填写' : house.shuidian}">水电费</dd>
+                </div>
+                <div>
+                    <dt>最低租期</dt>
+                    <dd th:text="${#strings.isEmpty(house.zuqi) ? '未填写' : house.zuqi}">最低租期</dd>
+                </div>
+            </dl>
+            <dl class="facts" th:if="${house.zhuangtai != '出租中'}">
+                <div>
+                    <dt>装修</dt>
+                    <dd th:text="${#strings.isEmpty(house.zhuangxiu) ? '未填写' : house.zhuangxiu}">装修</dd>
+                </div>
+                <div>
+                    <dt>产权年限</dt>
+                    <dd th:text="${#strings.isEmpty(house.chanquan) ? '未填写' : house.chanquan}">产权年限</dd>
+                </div>
+                <div>
+                    <dt>物业费</dt>
+                    <dd th:text="${#strings.isEmpty(house.wuye) ? '未填写' : house.wuye}">物业费</dd>
+                </div>
+            </dl>
+            <div class="listing-actions" th:if="${session.username != null and house.deleted == 0}">
+                <a th:href="@{/goxiugai(hid=${house.hid})}">编辑</a>
+                <form th:action="@{/shanchu}" method="post">
+                    <input type="hidden" name="hid" th:value="${house.hid}">
+                    <button type="submit">下架</button>
+                </form>
+            </div>
+        </div>
+    </article>
+</main>
+</body>
+</html>

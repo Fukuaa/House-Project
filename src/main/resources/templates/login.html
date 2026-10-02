@@ -13,7 +13,7 @@
     <div class="gate-form">
         <p class="eyebrow">Sign in</p>
         <h2>登录</h2>
-        <form th:action="@{/login}" method="post" class="form-grid">
+        <form id="login-form" th:action="@{/login}" method="post" class="form-grid">
             <div class="field">
                 <label>账号</label>
                 <input type="text" name="username" autocomplete="username">
@@ -22,10 +22,15 @@
                 <label>密码</label>
                 <input type="password" name="password" autocomplete="current-password">
             </div>
+            <label class="remember">
+                <input type="checkbox" name="remember">
+                <span>记住密码</span>
+            </label>
             <button class="btn" type="submit">登录</button>
         </form>
         <p class="switch">还没有账号？ <a th:href="@{/goZhuChe}">注册</a></p>
     </div>
 </section>
+<script src="/js/remember.js"></script>
 </body>
 </html>

@@ -223,6 +223,20 @@ img { max-width: 100%; }
   opacity: 0.86;
 }
 
+.listing-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.listing-link:hover h3 { color: var(--pine); }
+
+.more {
+  margin: 8px 2px 0;
+  font-size: 13px;
+  color: var(--pine);
+}
+
 .listing h3 {
   margin: 14px 2px 4px;
   font-size: 18px;
@@ -291,7 +305,93 @@ img { max-width: 100%; }
   box-shadow: var(--shadow);
 }
 
-.sheet h1 { font-size: 36px; }
+.sheet h1, .detail-copy h1 { font-size: 36px; }
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.remember input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--pine);
+}
+
+.group-label {
+  margin: 4px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.detail-fields { display: grid; gap: 14px; }
+.detail-fields.is-hidden { display: none; }
+
+.back {
+  display: inline-flex;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.back:hover { color: var(--ink); }
+
+.detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.75fr);
+  gap: 36px;
+  align-items: start;
+  padding: 18px 0 72px;
+}
+
+.detail-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #ddd6cc;
+  box-shadow: var(--shadow);
+}
+
+.detail-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-copy h1 { margin-top: 0; }
+
+.facts {
+  display: grid;
+  gap: 0;
+  margin: 22px 0 8px;
+}
+
+.facts div {
+  display: grid;
+  gap: 2px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.facts dt {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: 18px;
+}
 
 .sheet .lede { margin-bottom: 22px; }
 
@@ -460,7 +560,8 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 980px) {
-  .gallery { grid-template-columns: 1fr 1fr; }
+  .gallery { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .detail { grid-template-columns: 1fr; gap: 22px; }
   .work, .gate { grid-template-columns: 1fr; }
   .gate-visual { min-height: 42vh; }
   .gate-caption h1 { font-size: 42px; }
@@ -481,7 +582,8 @@ img { max-width: 100%; }
   .nav { grid-area: nav; width: auto; overflow-x: auto; }
   .top-side { grid-area: side; }
   .nav a { white-space: nowrap; }
-  .gallery { grid-template-columns: 1fr; gap: 26px; }
+  .gallery { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .detail-copy h1, .sheet h1 { font-size: 32px; }
   .intro { flex-direction: column; align-items: flex-start; padding-top: 28px; }
   .sheet { padding: 22px; }
   .gate-panel { padding: 28px 20px 48px; }

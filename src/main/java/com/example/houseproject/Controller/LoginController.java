@@ -1,5 +1,6 @@
 package com.example.houseproject.Controller;
 
+import com.example.houseproject.Pojo.HouseStatus;
 import com.example.houseproject.Pojo.User;
 import com.example.houseproject.Pojo.fangzhi;
 import com.example.houseproject.Service.UserService;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +33,36 @@ public class LoginController {
     @Value("${app.upload-dir:uploads}")
     private String uploadDir;
 
+    @ModelAttribute("statuses")
+    public HouseStatus[] statuses() {
+        return HouseStatus.values();
+    }
+
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("msg", userService.getall());
         return "index1";
+    }
+
+    @GetMapping("/house")
+    public String house(@RequestParam(value = "hid", required = false) Integer hid, HttpServletRequest request, Model model) {
+        if (hid == null) {
+            return "redirect:/";
+        }
+        fangzhi house = userService.querybyid(hid);
+        if (house == null) {
+            return "redirect:/";
+        }
+        HttpSession session = request.getSession(false);
+        boolean loggedIn = session != null && session.getAttribute("username") != null;
+        if (house.getDeleted() != 0 && !loggedIn) {
+            return "redirect:/";
+        }
+        if ("已售出".equals(house.getZhuangtai()) && house.getDeleted() == 0) {
+            return "redirect:/";
+        }
+        model.addAttribute("house", house);
+        return "house";
     }
 
     @GetMapping("/login")
@@ -111,20 +140,29 @@ public class LoginController {
     }
 
     @PostMapping("/xiugai")
-    public String xiugai(Model model, HttpServletRequest request, String dizhi, int mianji, int jiage, String zhuangtai) {
+    public String xiugai(Model model, HttpServletRequest request, String dizhi, int mianji, int jiage, String zhuangtai,
+                         String jiaju, String shuidian, String zuqi, String zhuangxiu, String chanquan, String wuye) {
         Object hid = request.getSession().getAttribute("f");
         if (hid == null) {
             log.warn("Update house failed: missing hid in session");
             return "redirect:/toindex";
         }
-        if (!isHouseStatus(zhuangtai)) {
-            fangzhi house = userService.querybyid((Integer) hid);
-            model.addAttribute("house", house);
-            model.addAttribute("error", "请选择房源状态");
-            log.warn("Update house failed: invalid status hid={}", hid);
+        String error = detailError(zhuangtai, jiaju, shuidian, zuqi, zhuangxiu, chanquan, wuye);
+        if (error != null) {
+            model.addAttribute("house", draft(dizhi, mianji, jiage, zhuangtai, jiaju, shuidian, zuqi, zhuangxiu, chanquan, wuye));
+            model.addAttribute("error", error);
+            log.warn("Update house failed: {} hid={}", error, hid);
             return "xiugai";
         }
-        userService.xiugai(dizhi, mianji, jiage, zhuangtai, (Integer) hid);
+        boolean rent = HouseStatus.isRent(zhuangtai);
+        userService.xiugai(dizhi, mianji, jiage, zhuangtai,
+                rent ? trimToNull(jiaju) : null,
+                rent ? trimToNull(shuidian) : null,
+                rent ? trimToNull(zuqi) : null,
+                rent ? null : trimToNull(zhuangxiu),
+                rent ? null : trimToNull(chanquan),
+                rent ? null : trimToNull(wuye),
+                (Integer) hid);
         Object u = request.getSession().getAttribute("username");
         model.addAttribute("msg", userService.getall());
         model.addAttribute("msg1", greeting((String) u));
@@ -169,12 +207,27 @@ public class LoginController {
 
     @PostMapping("/addfangzhi")
     public String addfangzhi(HttpServletRequest request, Model model, String dizhi, int mianji, int jiage,
-                             MultipartFile file, String tupian, String zhuangtai) {
+                             MultipartFile file, String tupian, String zhuangtai,
+                             String jiaju, String shuidian, String zuqi, String zhuangxiu, String chanquan, String wuye) {
+        String error = detailError(zhuangtai, jiaju, shuidian, zuqi, zhuangxiu, chanquan, wuye);
+        if (error != null) {
+            model.addAttribute("house", draft(dizhi, mianji, jiage, zhuangtai, jiaju, shuidian, zuqi, zhuangxiu, chanquan, wuye));
+            model.addAttribute("error", error);
+            log.warn("Create house failed: {}", error);
+            return "index2";
+        }
+        boolean rent = HouseStatus.isRent(zhuangtai);
         String imageUrl = saveUpload(file);
         if (imageUrl == null || imageUrl.isEmpty()) {
             imageUrl = (tupian == null || tupian.trim().isEmpty()) ? "/images/tu.jpg" : tupian.trim();
         }
-        userService.addfangzhi(dizhi, mianji, jiage, imageUrl, zhuangtai);
+        userService.addfangzhi(dizhi, mianji, jiage, imageUrl, zhuangtai,
+                rent ? trimToNull(jiaju) : null,
+                rent ? trimToNull(shuidian) : null,
+                rent ? trimToNull(zuqi) : null,
+                rent ? null : trimToNull(zhuangxiu),
+                rent ? null : trimToNull(chanquan),
+                rent ? null : trimToNull(wuye));
         Object u = request.getSession().getAttribute("username");
         model.addAttribute("msg", userService.getall());
         model.addAttribute("msg1", greeting((String) u));
@@ -305,8 +358,46 @@ public class LoginController {
         return value == null || value.trim().isEmpty();
     }
 
-    private boolean isHouseStatus(String value) {
-        return "售卖中".equals(value) || "出租中".equals(value) || "已售出".equals(value);
+    private String detailError(String zhuangtai, String jiaju, String shuidian, String zuqi,
+                               String zhuangxiu, String chanquan, String wuye) {
+        if (!HouseStatus.isValid(zhuangtai)) {
+            return "请选择房源状态";
+        }
+        if (HouseStatus.isRent(zhuangtai)) {
+            if (isBlank(jiaju) || isBlank(shuidian) || isBlank(zuqi)) {
+                return "请填写家具、水电费和最低租期";
+            }
+            return null;
+        }
+        if (isBlank(zhuangxiu) || isBlank(chanquan) || isBlank(wuye)) {
+            return "请填写装修、产权年限和物业费";
+        }
+        return null;
+    }
+
+    private fangzhi draft(String dizhi, int mianji, int jiage, String zhuangtai,
+                          String jiaju, String shuidian, String zuqi,
+                          String zhuangxiu, String chanquan, String wuye) {
+        fangzhi house = new fangzhi();
+        house.setDizhi(dizhi);
+        house.setMianji(mianji);
+        house.setJiage(jiage);
+        house.setZhuangtai(zhuangtai);
+        house.setJiaju(jiaju);
+        house.setShuidian(shuidian);
+        house.setZuqi(zuqi);
+        house.setZhuangxiu(zhuangxiu);
+        house.setChanquan(chanquan);
+        house.setWuye(wuye);
+        return house;
+    }
+
+    private String trimToNull(String value) {
+        if (value == null) {
+            return null;
+        }
+        String trimmed = value.trim();
+        return trimmed.isEmpty() ? null : trimmed;
     }
 
     private String greeting(String username) {

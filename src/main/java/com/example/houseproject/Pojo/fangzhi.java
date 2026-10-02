@@ -16,6 +16,12 @@ public class fangzhi {
     private int jiage;
     private String tupian;
     private String zhuangtai;
+    private String jiaju;
+    private String shuidian;
+    private String zuqi;
+    private String zhuangxiu;
+    private String chanquan;
+    private String wuye;
     private int deleted;
     private Date deletedAt;
 }
